@@ -1,6 +1,10 @@
 /**/
 
 .input {
-    width: 300px;
-    font-size: 40px;
+    width: 80%;
+    font-size: 60px;
   }
+
+.inputbtn {
+	width: 80%;
+}
