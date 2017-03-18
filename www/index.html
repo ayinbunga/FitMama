@@ -129,12 +129,42 @@
       <br><br>
         <img src="img/logo2.png" height="200px" width="200px">
       <br> <br>
-        <ons-input id="username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
+        <ons-input id="login_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
           <br>
-        <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
+        <ons-input id="login_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
           <br>
         <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
-        <p onclick="fn.load('profile.html')"> Create New Account </p>
+        <p onclick="fn.load('signup.html')"> Create New Account </p>
+    </div>
+  
+  </ons-page>
+</ons-template>
+
+<!-- end of login page -->
+
+<!-- signup page -->
+
+<ons-template id="signup.html">
+  <ons-page>
+    
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center"> SIGN UP </div>
+    </ons-toolbar>
+    
+    <div style="text-align: center;">
+      <br><br>
+        <img src="img/logo2.png" height="200px" width="200px">
+      <br> <br>
+        <ons-input id="signup_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
+          <br>
+        <ons-input id="signup_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
+          <br>
+        <ons-button onclick="signup()" class="inputbtn" id="signupbtn"> Sign Up </ons-button>
     </div>
   
   </ons-page>

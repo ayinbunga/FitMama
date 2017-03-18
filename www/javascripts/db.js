@@ -8,7 +8,7 @@
 		//tx.executeSql('DROP TABLE IF EXISTS userimage');
 		//tx.executeSql('DROP TABLE IF EXISTS recipes');
 		//tx.executeSql('DROP TABLE IF EXISTS tips');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, email, username UNIQUE, password)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, password)');
 		//tx.executeSql('CREATE TABLE IF NOT EXISTS recipes(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, title, recipe, recipe_img, timestamp)');
 		//tx.executeSql('CREATE TABLE IF NOT EXISTS tips(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, title, content, timestamp, category)');
 	});
