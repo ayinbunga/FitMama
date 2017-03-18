@@ -19,7 +19,10 @@
   <script type="text/javascript" src="javascripts/db.js"></script>
 
 </head>
+
 <body>
+
+<!-- side menu -->
 
 <ons-splitter>
   <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
@@ -40,54 +43,106 @@
   </ons-splitter-side>
 
 <ons-splitter-content id="content" page="profile.html"></ons-splitter-content>
-
 </ons-splitter>
+
+<!-- end of side menu -->
+
+<!-- profile page -->
 
 <ons-template id="profile.html">
   <ons-page>
+    
     <ons-toolbar>
       <div class="right">
         <ons-toolbar-button onclick="fn.open()">
           <ons-icon icon="md-menu"></ons-icon>
         </ons-toolbar-button>
       </div>
-      <div class="center">
-        PROFILE
-      </div>
+      <div class="center"> PROFILE </div>
     </ons-toolbar>
-    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
-      This is the profile content!
-    </p>
+    
+    <div align="center">
+      <br><br>
+      <img src="img/temp.JPG" id="profilepic" height="30%" width="30%">
+      <h3 id="current_user"> Harnasyrin Afiqah Hakimi </h3>
+      <p> You are currently 15 weeks pregnant </p>
+    </div>
+
+    <div class="tab-bar tab-bar--top tab-bar--top-border">
+      <label class="tab-bar__item tab-bar--top-border__item">
+        <input type="radio" name="top-tab-bar-b" checked="checked">
+        <button class="tab-bar__button tab-bar--top-border__button">
+          Overall
+        </button>
+      </label>
+
+      <label class="tab-bar__item tab-bar--top-border__item">
+        <input type="radio" name="top-tab-bar-b">
+        <button class="tab-bar__button tab-bar--top-border__button">
+          Today
+        </button>
+      </label>
+
+      <label class="tab-bar__item tab-bar--top-border__item">
+        <input type="radio" name="top-tab-bar-b">
+        <button class="tab-bar__button tab-bar--top-border__button">
+          This Week
+        </button>
+      </label>
+
+      <label class="tab-bar__item tab-bar--top-border__item">
+        <input type="radio" name="top-tab-bar-b">
+        <button class="tab-bar__button tab-bar--top-border__button">
+          Past
+        </button>
+      </label>
+    </div>
+
+    <ons-list>
+    <ons-list-item> Average duration</ons-list-item>
+    <ons-list-item> Total sessions </ons-list-item>
+    <ons-list-item> Total time working out </ons-list-item>
+    <ons-list-item> total calories burned </ons-list-item>
+    </ons-list>
+      
   </ons-page>
 </ons-template>
+
+<!-- end of profile page -->
+
+
+<!-- login page -->
 
 <ons-template id="login.html">
   <ons-page>
+    
     <ons-toolbar>
       <div class="right">
         <ons-toolbar-button onclick="fn.open()">
           <ons-icon icon="md-menu"></ons-icon>
         </ons-toolbar-button>
       </div>
-      <div class="center">
-        LOGIN
-      </div>
+      <div class="center"> LOGIN </div>
     </ons-toolbar>
+    
     <div style="text-align: center;">
-    <br> <br>
-    <img src="img/logo2.png" height="200px" width="200px">
-    <br> <br>
-      <ons-input id="username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
-      <br>
-      <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
-      <br>
-      <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
-      <p onclick="fn.load('profile.html')"> Create New Account </p>
-
+      <br><br>
+        <img src="img/logo2.png" height="200px" width="200px">
+      <br> <br>
+        <ons-input id="username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
+          <br>
+        <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
+          <br>
+        <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
+        <p onclick="fn.load('profile.html')"> Create New Account </p>
+    </div>
   
-  </div>
   </ons-page>
 </ons-template>
+
+<!-- end of login page -->
+
+<!-- end of plan page -->
 
 <ons-template id="plan.html">
   <ons-page>
@@ -106,5 +161,8 @@
     </p>
   </ons-page>
 </ons-template>
+
+<!-- end of plan page -->
+
 </body>
 </html>
