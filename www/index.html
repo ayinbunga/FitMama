@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="theme/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="jquery-mobile/jquery-1.11.1.min.js"></script>
+  <script src="jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+
+  <script type="text/javascript" src="javascripts/controllers.js"></script>
+  <script type="text/javascript" src="javascripts/db.js"></script>
+
+</head>
+<body>
+
+<ons-splitter>
+  <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
+    <ons-page>
+      <ons-list>
+      <h3 align="center"> Menu </h3>
+        <ons-list-item onclick="fn.load('profile.html')" tappable>
+          Profile
+        </ons-list-item>
+        <ons-list-item onclick="fn.load('login.html')" tappable>
+          Login
+        </ons-list-item>
+        <ons-list-item onclick="fn.load('plan.html')" tappable>
+          Exercise Plan
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </ons-splitter-side>
+
+<ons-splitter-content id="content" page="profile.html"></ons-splitter-content>
+
+</ons-splitter>
+
+<ons-template id="profile.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        PROFILE
+      </div>
+    </ons-toolbar>
+    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+      This is the profile content!
+    </p>
+  </ons-page>
+</ons-template>
+
+<ons-template id="login.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        LOGIN
+      </div>
+    </ons-toolbar>
+    <div style="text-align: center;">
+    <br> <br>
+    <img src="img/logo2.png" height="200px" width="200px">
+    <br> <br>
+      <ons-input id="username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
+      <br>
+      <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
+      <br>
+      <ons-button onclick="login()">Sign in</ons-button>
+
+  
+  </div>
+  </ons-page>
+</ons-template>
+
+<ons-template id="plan.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        EXERCISE PLAN
+      </div>
+    </ons-toolbar>
+    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+      This is the exercise plan content!
+    </p>
+  </ons-page>
+</ons-template>
+</body>
+</html>
