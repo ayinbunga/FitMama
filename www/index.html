@@ -15,7 +15,7 @@
   <script src="jquery-mobile/jquery-1.11.1.min.js"></script>
   <!-- script src="jquery-mobile/jquery.mobile-1.4.5.min.js"></script -->
 
-  <script type="text/javascript" src="javascripts/controllers.js"></script>
+  
   <script type="text/javascript" src="javascripts/db.js"></script>
 
 </head>
@@ -30,7 +30,7 @@
     <ons-page>
       <ons-list>
       <h3 align="center"> Menu </h3>
-        <ons-list-item onclick="fn.load('profile.html')" tappable>
+        <ons-list-item onclick="profileloader()" tappable>
           Profile
         </ons-list-item>
         <!-- ons-list-item onclick="fn.load('login.html')" tappable>
@@ -113,14 +113,6 @@
 <ons-template id="duedatecalc.html">
   <ons-page>
     <ons-toolbar>
-      <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        CALCULATOR
-      </div>
     </ons-toolbar>
     <div align="center">
     <h2> Welcome to FitMama!</h2>
@@ -155,8 +147,8 @@
     <div align="center">
       <br><br>
       <img src="img/temp.JPG" id="profilepic" height="30%" width="30%">
-      <h3 id="current_user"> Harnasyrin Afiqah Hakimi </h3>
-      <p> You are currently 15 weeks pregnant </p>
+      <h3 id="current_user"> </h3>
+      <p> You are currently <text id="weeks"></text> weeks pregnant </p>
     </div>
 
     <div class="tab-bar tab-bar--top tab-bar--top-border">
@@ -215,9 +207,7 @@
         EXERCISE PLAN
       </div>
     </ons-toolbar>
-    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
-      This is the exercise plan content!
-    </p>
+    NULL
   </ons-page>
 </ons-template>
 
@@ -237,13 +227,12 @@
         TIMELINE
       </div>
     </ons-toolbar>
-    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
-      This is timeline content!
-    </p>
+    NULL
   </ons-page>
 </ons-template>
 
 <!-- end of timeline page -->
+<script type="text/javascript" src="javascripts/controllers.js"></script>
 
 </body>
 </html>

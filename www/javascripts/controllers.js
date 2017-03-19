@@ -12,12 +12,22 @@ window.fn.load = function(page) {
   var menu = document.getElementById('menu');
   content.load(page)
     .then(menu.close.bind(menu));
+  //checkCurrentWeek();
+};
+
+var profileloader = function() {
+  checkCurrentWeek();
+  fn.load('profile.html');
 };
 
 //logout function
 
 var logout = function() {
   localStorage.setItem("username", "");
+  localStorage.setItem("currentweek", "");
+  localStorage.setItem("lmp_date", "");
+  localStorage.setItem("duedate","");
+  localStorage.setItem("days","");
   fn.load('login.html');
 }
 
@@ -27,6 +37,7 @@ $('document').ready(function(){
 
   if (username != ""){
     fn.load('profile.html');
+    checkCurrentWeek();
   }
   else {
     fn.load('login.html');
@@ -93,6 +104,7 @@ var login = function(){
       function querySuccess(tx, results){
         var len = results.rows.length;
           if(len > 0){
+            checkCurrentWeek();
             fn.load('profile.html')
               }
         else {
@@ -133,14 +145,6 @@ var calcCurrentWeek = function() {
   }
   else
   {
-    var days = estimated_gestational_age % 7;
-    days = Math.round(days*1)/1;
-
-    var result = weeks + 'weeks and ' + days + ' /7 days ';
-
-    if (days == 0) { var result = weeks + ' weeks exactly '}
-    if (days == 7) { var result = weeks+1 + ' weeks exactly '}
-
     $('document').ready(function(){
       var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
@@ -165,6 +169,63 @@ var calcCurrentWeek = function() {
     fn.load('profile.html');
   }
 
-    console.log(result);
-}
+};
+
+//checkCurrentWeek
+
+var checkCurrentWeek = function () {
+
+  var username = localStorage.getItem('username');
+
+  var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+        
+      db.transaction(function(tx){
+        tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
+      });
+      
+      function querySuccess(tx, results){
+      
+        var len = results.rows.length;  
+          if(len > 0){
+            for(i = 0; i < len; i++){
+
+              var lmp_date = results.rows.item(i).lmp_date;
+              var duedate = results.rows.item(i).duedate;
+
+              localStorage.setItem("lmp_date", lmp_date);
+              localStorage.setItem("duedate", duedate);
+
+              var today = new Date();
+              var last_menstrual_period = new Date(duedate);
+
+              last_menstrual_period.setDate ( last_menstrual_period.getDate() - 280 );
+              var estimated_gestational_age = today - last_menstrual_period;
+              estimated_gestational_age = estimated_gestational_age/86400000;
+
+              var weeks = parseInt(estimated_gestational_age/7);
+
+              var days = estimated_gestational_age % 7;
+              days = Math.round(days*1)/1;
+
+              localStorage.setItem("currentweek", weeks);
+              localStorage.setItem("days", days);
+
+              var currentweek = localStorage.getItem('currentweek');
+
+              document.getElementById("current_user").innerHTML = username;
+              document.getElementById("weeks").innerHTML = currentweek;
+
+            }
+
+          }
+
+          else {
+
+          }
+      }
+      
+      function errorCB(err){
+        alert("Error" + err.code);  }
+
+};
 
