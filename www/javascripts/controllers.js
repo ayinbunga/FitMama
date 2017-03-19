@@ -1,10 +1,16 @@
 
+//side menu controller
 
 window.fn = {};
 
 window.fn.open = function() {
   var menu = document.getElementById('menu');
   menu.open();
+};
+
+window.fn.close = function() {
+  var menu = document.getElementById('menu');
+  menu.close();
 };
 
 window.fn.load = function(page) {
@@ -30,6 +36,8 @@ var logout = function() {
   localStorage.setItem("days","");
   fn.load('login.html');
 }
+
+//open up application
 
 $('document').ready(function(){
 
@@ -120,7 +128,7 @@ var login = function(){
 };
 
 
-//calculate current week of pregnancy
+//calculate current week of pregnancy and storing due date
 
 var calcCurrentWeek = function() {
 

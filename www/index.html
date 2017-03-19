@@ -26,9 +26,13 @@
 <!-- side menu -->
 
 <ons-splitter>
-  <ons-splitter-side id="menu" side="right" width="220px" swipeable collapse>
+  <ons-splitter-side id="menu" side="right" width="220px" collapse>
     <ons-page>
       <ons-list>
+      <div align="right"> <!-- text onclick="fn.close()" class="largefont"> x </text -->
+        <ons-icon icon="times" onclick="fn.close()" size="24px, material:20px"></ons-icon>
+      </div>
+
       <h3 align="center"> Menu </h3>
         <ons-list-item onclick="profileloader()" tappable>
           Profile
