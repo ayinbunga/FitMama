@@ -68,7 +68,7 @@ var signup = function() {
     
     function successCB(){
         localStorage.setItem("username", username);
-        fn.load('duedatecalc.html')
+        fn.load('duedatecalc.html');
         }
         
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
@@ -166,7 +166,8 @@ var calcCurrentWeek = function() {
         alert("Error" + err.code);  }
     });
 
-    fn.load('profile.html');
+    localStorage.setItem("username", username);
+    profileloader();
   }
 
 };
