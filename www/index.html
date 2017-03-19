@@ -99,7 +99,7 @@
     
     <div style="text-align: center;">
       <br><br>
-        <img src="img/logo2.png" height="200px" width="200px" class="img-circle">
+        <img src="img/logo2.png" height="200px" width="200px">
       <br> <br>
         <ons-input id="signup_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
           <br>
@@ -150,10 +150,20 @@
     </ons-toolbar>
     
     <div align="center">
-      <br>
-      <img src="img/temp.JPG" id="profilepic" height="30%" width="30%">
-      <h3 id="current_user"> </h3>
-      <text> You are currently <text id="weeks"></text> weeks pregnant </text>
+      &nbsp;
+      <table>
+      <tr>
+      <td>
+      <img src="img/temp.JPG" id="profilepic" height="100px" width="100px" class="img-circle">
+      </td>
+      <td>&nbsp;</td>
+      <td>
+      <text class="largefont" id="current_user"> </text> <br>
+      <text class="smallfont"> You are currently <text id="weeks"></text> weeks pregnant </text>
+      </td>
+      </tr>
+      </table>
+      &nbsp;
     </div>
 
     <div class="tab-bar tab-bar--top tab-bar--top-border">

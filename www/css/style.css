@@ -22,3 +22,11 @@
 .img-circle {
     border-radius: 50%;
 }
+
+.smallfont {
+	font-size: 13px;
+}
+
+.largefont {
+	font-size: 20px;
+}
