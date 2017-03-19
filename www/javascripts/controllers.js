@@ -119,7 +119,9 @@ var calcCurrentWeek = function() {
   var last_menstrual_period = new Date(thedate);
   last_menstrual_period.setDate ( last_menstrual_period.getDate() - 280 );
 
-  console.log(last_menstrual_period);
+  var lmp_date = last_menstrual_period.getFullYear()+'-'+ last_menstrual_period.getMonth() +'-'+ last_menstrual_period.getDate();
+  
+  console.log(lmp_date);
 
   var estimated_gestational_age = today - last_menstrual_period;
   estimated_gestational_age = estimated_gestational_age/86400000;
@@ -144,7 +146,7 @@ var calcCurrentWeek = function() {
         
       db.transaction(function(tx){
         tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
-                  tx.executeSql('INSERT INTO user_profile(username, lmp_date, duedate) VALUES(?, ?, ?)', [username, last_menstrual_period, thedate]);
+                  tx.executeSql('INSERT INTO user_profile(username, lmp_date, duedate) VALUES(?, ?, ?)', [username, lmp_date, thedate]);
       });
       
       function querySuccess(tx, results){
