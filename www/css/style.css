@@ -12,3 +12,9 @@
 .alignleft {
 	text-align: right;
 }
+
+.datepicker {
+	width: 80%;
+	font-size: 20px;
+	border-color: #fc8585;
+}

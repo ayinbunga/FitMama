@@ -5,16 +5,13 @@
  var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
 	db.transaction(function(tx){
 		//tx.executeSql('DROP TABLE IF EXISTS user');
-		//tx.executeSql('DROP TABLE IF EXISTS userimage');
-		//tx.executeSql('DROP TABLE IF EXISTS recipes');
-		//tx.executeSql('DROP TABLE IF EXISTS tips');
+		//tx.executeSql('DROP TABLE IF EXISTS user_profile');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, password)');
-		//tx.executeSql('CREATE TABLE IF NOT EXISTS recipes(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, title, recipe, recipe_img, timestamp)');
-		//tx.executeSql('CREATE TABLE IF NOT EXISTS tips(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, title, content, timestamp, category)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
 	});
 
 $('document').ready(function(){
-		var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+	var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
 		
 	db.transaction(function(tx){
 			tx.executeSql('SELECT * FROM user', [], querySuccess, errorCB);	
@@ -36,5 +33,5 @@ $('document').ready(function(){
 		function errorCB(err){
 		 alert("Error" + err.code);
 		}
-	});
+});
 

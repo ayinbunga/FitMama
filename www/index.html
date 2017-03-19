@@ -22,30 +22,121 @@
 
 <body>
 
+
 <!-- side menu -->
 
 <ons-splitter>
-  <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
+  <ons-splitter-side id="menu" side="right" width="220px" swipeable collapse>
     <ons-page>
       <ons-list>
       <h3 align="center"> Menu </h3>
         <ons-list-item onclick="fn.load('profile.html')" tappable>
           Profile
         </ons-list-item>
-        <ons-list-item onclick="fn.load('login.html')" tappable>
+        <!-- ons-list-item onclick="fn.load('login.html')" tappable>
           Login
-        </ons-list-item>
+        </ons-list-item -->
         <ons-list-item onclick="fn.load('plan.html')" tappable>
           Exercise Plan
+        </ons-list-item>
+        <ons-list-item onclick="fn.load('timeline.html')" tappable>
+          Timeline
+        </ons-list-item>
+        <ons-list-item onclick="logout()" tappable>
+          Log out
         </ons-list-item>
       </ons-list>
     </ons-page>
   </ons-splitter-side>
 
 <ons-splitter-content id="content" page="profile.html"></ons-splitter-content>
+
 </ons-splitter>
 
 <!-- end of side menu -->
+
+
+<!-- login page -->
+
+<ons-template id="login.html">
+  <ons-page>
+    
+    <ons-toolbar>
+      <div class="center"> LOGIN </div>
+    </ons-toolbar>
+    
+    <div style="text-align: center;">
+      <br><br>
+        <img src="img/logo2.png" height="200px" width="200px">
+      <br> <br>
+        <ons-input id="login_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
+          <br>
+        <ons-input id="login_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
+          <br>
+        <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
+        <p onclick="fn.load('signup.html')"> Create New Account </p>
+    </div>
+  
+  </ons-page>
+</ons-template>
+
+<!-- end of login page -->
+
+<!-- signup page -->
+
+<ons-template id="signup.html">
+  <ons-page>
+    
+    <ons-toolbar>
+      <div class="center"> SIGN UP </div>
+      <div class="left"><ons-back-button>Back</ons-back-button></div>
+    </ons-toolbar>
+    
+    <div style="text-align: center;">
+      <br><br>
+        <img src="img/logo2.png" height="200px" width="200px">
+      <br> <br>
+        <ons-input id="signup_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
+          <br>
+        <ons-input id="signup_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
+          <br>
+        <ons-button onclick="signup()" class="inputbtn" id="signupbtn"> Sign Up </ons-button>
+    </div>
+  
+  </ons-page>
+</ons-template>
+
+<!-- end of signup page -->
+
+<!-- due date calculator page -->
+
+<ons-template id="duedatecalc.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        CALCULATOR
+      </div>
+    </ons-toolbar>
+    <div align="center">
+    <h2> Welcome to FitMama!</h2>
+    <p> Calculate your current week of pregnancy. <br> <br>
+    Enter your due date: </p>
+    <input type="date" class="datepicker" id="duedate"> </input>
+    <br><br> or <br>
+    <p> Enter your last menstrual period date: </p>
+    <input type="date" class="datepicker" id="lmp_date"> </input>
+    <br><br>
+    <ons-button class="inputbtn" onclick="calcCurrentWeek()"> Submit </ons-button>
+    </div>
+  </ons-page>
+</ons-template>
+
+<!-- end of timeline page -->
 
 <!-- profile page -->
 
@@ -110,69 +201,7 @@
 
 <!-- end of profile page -->
 
-
-<!-- login page -->
-
-<ons-template id="login.html">
-  <ons-page>
-    
-    <ons-toolbar>
-      <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center"> LOGIN </div>
-    </ons-toolbar>
-    
-    <div style="text-align: center;">
-      <br><br>
-        <img src="img/logo2.png" height="200px" width="200px">
-      <br> <br>
-        <ons-input id="login_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
-          <br>
-        <ons-input id="login_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
-          <br>
-        <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
-        <p onclick="fn.load('signup.html')"> Create New Account </p>
-    </div>
-  
-  </ons-page>
-</ons-template>
-
-<!-- end of login page -->
-
-<!-- signup page -->
-
-<ons-template id="signup.html">
-  <ons-page>
-    
-    <ons-toolbar>
-      <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center"> SIGN UP </div>
-    </ons-toolbar>
-    
-    <div style="text-align: center;">
-      <br><br>
-        <img src="img/logo2.png" height="200px" width="200px">
-      <br> <br>
-        <ons-input id="signup_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
-          <br>
-        <ons-input id="signup_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
-          <br>
-        <ons-button onclick="signup()" class="inputbtn" id="signupbtn"> Sign Up </ons-button>
-    </div>
-  
-  </ons-page>
-</ons-template>
-
-<!-- end of login page -->
-
-<!-- end of plan page -->
+<!-- plan page -->
 
 <ons-template id="plan.html">
   <ons-page>
@@ -193,6 +222,28 @@
 </ons-template>
 
 <!-- end of plan page -->
+
+<!-- timeline page -->
+
+<ons-template id="timeline.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        TIMELINE
+      </div>
+    </ons-toolbar>
+    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+      This is timeline content!
+    </p>
+  </ons-page>
+</ons-template>
+
+<!-- end of timeline page -->
 
 </body>
 </html>

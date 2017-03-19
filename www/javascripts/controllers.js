@@ -1,19 +1,38 @@
 
-//side menu controller
 
 window.fn = {};
 
-    window.fn.open = function() {
-      var menu = document.getElementById('menu');
-      menu.open();
-    };
+window.fn.open = function() {
+  var menu = document.getElementById('menu');
+  menu.open();
+};
 
-    window.fn.load = function(page) {
-      var content = document.getElementById('content');
-      var menu = document.getElementById('menu');
-      content.load(page)
-      .then(menu.close.bind(menu));
-    };
+window.fn.load = function(page) {
+  var content = document.getElementById('content');
+  var menu = document.getElementById('menu');
+  content.load(page)
+    .then(menu.close.bind(menu));
+};
+
+//logout function
+
+var logout = function() {
+  localStorage.setItem("username", "");
+  fn.load('login.html');
+}
+
+$('document').ready(function(){
+
+  var username = localStorage.getItem('username');
+
+  if (username != ""){
+    fn.load('profile.html');
+  }
+  else {
+    fn.load('login.html');
+  }
+
+});
 
 
 //sign up function
@@ -37,7 +56,8 @@ var signup = function() {
         }
     
     function successCB(){
-        fn.load('profile.html')
+        localStorage.setItem("username", username);
+        fn.load('duedatecalc.html')
         }
         
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
@@ -52,7 +72,7 @@ var signup = function() {
     
 };
 
-//login event.........
+//login function
 
 var login = function(){
   var username = $("#login_username").val();
@@ -86,3 +106,63 @@ var login = function(){
   else { ons.notification.alert("Invalid input!") }
   
 };
+
+
+//calculate current week of pregnancy
+
+var calcCurrentWeek = function() {
+
+  var username = localStorage.getItem('username');
+  var thedate = $("#duedate").val();
+
+  var today = new Date();
+  var last_menstrual_period = new Date(thedate);
+  last_menstrual_period.setDate ( last_menstrual_period.getDate() - 280 );
+
+  console.log(last_menstrual_period);
+
+  var estimated_gestational_age = today - last_menstrual_period;
+  estimated_gestational_age = estimated_gestational_age/86400000;
+
+  var weeks = parseInt(estimated_gestational_age/7);
+
+  if (weeks > 42 || weeks < 0 ) {
+    alert('Error!');
+  }
+  else
+  {
+    var days = estimated_gestational_age % 7;
+    days = Math.round(days*1)/1;
+
+    var result = weeks + 'weeks and ' + days + ' /7 days ';
+
+    if (days == 0) { var result = weeks + ' weeks exactly '}
+    if (days == 7) { var result = weeks+1 + ' weeks exactly '}
+
+    $('document').ready(function(){
+      var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+        
+      db.transaction(function(tx){
+        tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
+                  tx.executeSql('INSERT INTO user_profile(username, lmp_date, duedate) VALUES(?, ?, ?)', [username, last_menstrual_period, thedate]);
+      });
+      
+      function querySuccess(tx, results){
+        var len = results.rows.length;
+          if(len > 0){
+            fn.load('profile.html')
+              }
+        else {
+          ons.notification.alert("Invalid input!") }
+      }
+    
+      function errorCB(err){
+        alert("Error" + err.code);  }
+    });
+
+    fn.load('profile.html');
+  }
+
+    console.log(result);
+}
+
