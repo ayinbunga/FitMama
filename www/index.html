@@ -49,9 +49,14 @@
     </ons-page>
   </ons-splitter-side>
 
-<ons-splitter-content id="content" page="profile.html"></ons-splitter-content>
+<ons-splitter-content id="content" page="homePage.html"></ons-splitter-content>
 
 </ons-splitter>
+
+<ons-template id="homePage.html">
+  <ons-page>
+  </ons-page>
+</ons-template>
 
 <!-- end of side menu -->
 
@@ -94,7 +99,7 @@
     
     <div style="text-align: center;">
       <br><br>
-        <img src="img/logo2.png" height="200px" width="200px">
+        <img src="img/logo2.png" height="200px" width="200px" class="img-circle">
       <br> <br>
         <ons-input id="signup_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
           <br>
@@ -145,10 +150,10 @@
     </ons-toolbar>
     
     <div align="center">
-      <br><br>
+      <br>
       <img src="img/temp.JPG" id="profilepic" height="30%" width="30%">
       <h3 id="current_user"> </h3>
-      <p> You are currently <text id="weeks"></text> weeks pregnant </p>
+      <text> You are currently <text id="weeks"></text> weeks pregnant </text>
     </div>
 
     <div class="tab-bar tab-bar--top tab-bar--top-border">
