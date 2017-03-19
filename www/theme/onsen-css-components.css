@@ -1153,7 +1153,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1165,7 +1165,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -1274,7 +1274,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1286,7 +1286,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -1360,7 +1360,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1372,7 +1372,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -1421,7 +1421,7 @@ ons-range[disabled] .range {
     <button class="button button--large">Button</button>
 */
 .button--large {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 36px;
   padding: 4px 12px;
@@ -1482,7 +1482,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1494,7 +1494,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -1507,7 +1507,7 @@ ons-range[disabled] .range {
   -moz-transition: none;
   -o-transition: none;
   transition: none;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 36px;
   padding: 4px 12px;
@@ -1573,7 +1573,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1585,7 +1585,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -1601,7 +1601,7 @@ ons-range[disabled] .range {
   border: none;
   background-color: #f6a67b;
   color: #fff;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 36px;
   padding: 4px 12px;
@@ -1664,7 +1664,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1676,7 +1676,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -1757,7 +1757,7 @@ ons-range[disabled] .range {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1769,7 +1769,7 @@ ons-range[disabled] .range {
   height: auto;
   text-decoration: none;
   padding: 4px 10px;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: 0;
   color: #fff;
@@ -4558,7 +4558,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   border: none;
   background-color: transparent;
   letter-spacing: 0;
@@ -4568,7 +4568,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   padding: 0;
   margin: 0;
   width: 100%;
-  font-size: 15px;
+  font-size: 20px;
   height: 31px;
   font-weight: 400;
   -webkit-box-sizing: border-box;
@@ -4650,7 +4650,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   border: none;
   background-color: transparent;
   letter-spacing: 0;
@@ -4660,7 +4660,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   padding: 0;
   margin: 0;
   width: 100%;
-  font-size: 15px;
+  font-size: 20px;
   height: 31px;
   font-weight: 400;
   -webkit-box-sizing: border-box;
@@ -4748,7 +4748,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 20px;
   font-family: 'Roboto', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #212121;
@@ -4762,7 +4762,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   background-repeat: no-repeat;
   background-position: center bottom;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   border: none;
   padding-bottom: 2px;
