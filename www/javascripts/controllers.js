@@ -26,6 +26,12 @@ var profileloader = function() {
   fn.load('profile.html');
 };
 
+var timelineloader = function() {
+  checkCurrentWeek();
+  displayinfo();
+  fn.load('timeline.html');
+}
+
 //logout function
 
 var logout = function() {
@@ -179,6 +185,40 @@ var calcCurrentWeek = function() {
   }
 
 };
+
+//display baby info
+
+var displayinfo = function() {
+
+  var currentweek = localStorage.getItem('currentweek');
+
+  var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM weekly_info WHERE id=?', [currentweek], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
+          if(len > 0){
+            for(i = 0;i < len; i++){
+
+              document.getElementById("babyinfo").innerHTML = results.rows.item(i).info;
+
+            }
+
+          }
+
+          else {
+
+          }
+      }
+      
+      function errorCB(err){
+        alert("Error" + err.code);  }
+
+};
+      
 
 //checkCurrentWeek
 

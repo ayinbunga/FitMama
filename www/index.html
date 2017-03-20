@@ -17,6 +17,7 @@
 
   
   <script type="text/javascript" src="javascripts/db.js"></script>
+  <script type="text/javascript" src="javascripts/data.js"></script>
 
 </head>
 
@@ -43,7 +44,7 @@
         <ons-list-item onclick="fn.load('plan.html')" tappable>
           Exercise Plan
         </ons-list-item>
-        <ons-list-item onclick="fn.load('timeline.html')" tappable>
+        <ons-list-item onclick="timelineloader()" tappable>
           Timeline
         </ons-list-item>
         <ons-list-item onclick="logout()" tappable>
@@ -58,7 +59,8 @@
 </ons-splitter>
 
 <ons-template id="homePage.html">
-  <ons-page>
+  <ons-page id="homePage">
+  <ons-navigator id="myNavigator" page="profile.html"></ons-navigator>
   </ons-page>
 </ons-template>
 
@@ -68,7 +70,7 @@
 <!-- login page -->
 
 <ons-template id="login.html">
-  <ons-page>
+  <ons-page id="login">
     
     <ons-toolbar>
       <div class="center"> LOGIN </div>
@@ -94,7 +96,7 @@
 <!-- signup page -->
 
 <ons-template id="signup.html">
-  <ons-page>
+  <ons-page id="signup">
     
     <ons-toolbar>
       <div class="center"> SIGN UP </div>
@@ -120,7 +122,7 @@
 <!-- due date calculator page -->
 
 <ons-template id="duedatecalc.html">
-  <ons-page>
+  <ons-page id="duedatecalc">
     <ons-toolbar>
     </ons-toolbar>
     <div align="center">
@@ -142,7 +144,7 @@
 <!-- profile page -->
 
 <ons-template id="profile.html">
-  <ons-page>
+  <ons-page id="profile">
     
     <ons-toolbar>
       <div class="right">
@@ -215,7 +217,7 @@
 <!-- plan page -->
 
 <ons-template id="plan.html">
-  <ons-page>
+  <ons-page id="plan">
     <ons-toolbar>
       <div class="right">
         <ons-toolbar-button onclick="fn.open()">
@@ -235,7 +237,7 @@
 <!-- timeline page -->
 
 <ons-template id="timeline.html">
-  <ons-page>
+  <ons-page id="timeline">
     <ons-toolbar>
       <div class="right">
         <ons-toolbar-button onclick="fn.open()">
@@ -246,7 +248,26 @@
         TIMELINE
       </div>
     </ons-toolbar>
-    NULL
+    
+    <div align="center">
+      <br><br><br>
+      <text id="current_user" hidden="hidden"></text>. 
+      <text>You are currently</text>
+      <br>
+      <text class="customheader"> <text id="weeks" style="font-size: 50px"></text> weeks </text>
+      <text class="smallfont"> pregnant </text>
+      <br> <br>
+
+      <div class="card">
+        <h4> BABY INFO </h4>
+        <div align="justify">
+        <text id="babyinfo">
+        </text>
+        </div>
+      </div>
+      
+    </div>
+  
   </ons-page>
 </ons-template>
 
