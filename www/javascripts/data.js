@@ -45,30 +45,61 @@ week[40]= "week41";
 week[41]= "week42";
 
 
-var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+//var weeklist1, weeklist2, weeklist3, weeklist4, weeklist5 = [];
 
+weeklist1 = ["todo1","todo2", "todo3"];
+weeklist2 = ["todo4","todo5", "todo6"];
+weeklist3 = ["todo7","todo8", "todo9"];
+weeklist4 = ["todo7","todo8", "todo9"];
+weeklist5 = ["todo7","todo8", "todo9"];
+weeklist6 = ["todo7","todo8", "todo9"];
+weeklist7 = ["todo7","todo8", "todo9"];
+weeklist8 = ["todo7","todo8", "todo9"];
+weeklist9 = ["todo7","todo8", "todo9"];
+weeklist10 = ["todo7","todo8", "todo9"];
+weeklist11 = ["todo7","todo8", "todo9"];
+weeklist12 = ["todo7","todo8", "todo9"];
+weeklist13 = ["todo7","todo8", "todo9"];
+weeklist14 = ["todo7","todo8", "todo9"];
+weeklist15 = ["todo7","todo8", "todo9"];
+weeklist16 = ["todo7","todo8", "todo9"];
+weeklist17 = ["todo7","todo8", "todo9"];
+weeklist18 = ["todo7","todo8", "todo9"];
+weeklist19 = ["todo7","todo8", "todo9"];
+weeklist20 = ["todo7","todo8", "todo9"];
+weeklist21 = ["todo7","todo8", "todo9"];
+weeklist22 = ["todo7","todo8", "todo9"];
+weeklist23 = ["todo7","todo8", "todo9"];
+weeklist24 = ["todo7","todo8", "todo9"];
+weeklist25 = ["todo7","todo8", "todo9"];
+weeklist26 = ["todo7","todo8", "todo9"];
+weeklist27 = ["todo7","todo8", "todo9"];
+weeklist28 = ["todo7","todo8", "todo9"];
+weeklist29 = ["todo7","todo8", "todo9"];
+weeklist30 = ["todo7","todo8", "todo9"];
+weeklist31 = ["todo7","todo8", "todo9"];
+weeklist32 = ["todo7","todo8", "todo9"];
+weeklist33 = ["todo7","todo8", "todo9"];
+weeklist34 = ["todo7","todo8", "todo9"];
+weeklist35 = ["todo7","todo8", "todo9"];
+weeklist36 = ["todo7","todo8", "todo9"];
+weeklist37 = ["todo7","todo8", "todo9"];
+weeklist38 = ["todo7","todo8", "todo9"];
+weeklist39 = ["todo7","todo8", "todo9"];
+weeklist40 = ["todo7","todo8", "todo9"];
+weeklist41 = ["todo7","todo8", "todo9"];
+weeklist42 = ["todo7","todo8", "todo9"];
 
-	function populateDB(tx){
-		tx.executeSql('DROP TABLE IF EXISTS weekly_info');	
-		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_info(id INTEGER NOT NULL PRIMARY KEY, info)');
+var weeklisthead = [weeklist1,weeklist2,weeklist3,weeklist4,weeklist5,
+					weeklist6,weeklist7,weeklist8,weeklist9,weeklist10,
+					weeklist11,weeklist12,weeklist13,weeklist14,weeklist15,
+					weeklist16,weeklist17,weeklist18,weeklist19,weeklist20,
+					weeklist21,weeklist22,weeklist23,weeklist24,weeklist25,
+					weeklist26,weeklist27,weeklist28,weeklist29,weeklist30,
+					weeklist31,weeklist32,weeklist33,weeklist34,weeklist35,
+					weeklist36,weeklist37,weeklist38,weeklist39,weeklist40,
+					weeklist41,weeklist42];
 
-		for(i=1; i<=42; i++) {
-		tx.executeSql('INSERT INTO weekly_info(id, info) VALUES(?,?)', [i, week[i-1]]);
-		//tx.executeSql('INSERT INTO weekly_info(info) VALUES(?)', [week_2]);
-		}
-	}
-					
-	function errorCB(err){
-		
-		alert("error");
-	}
-		
-	function successCB(){
-						
-	}		
-
-	var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
-	db.transaction(populateDB,errorCB,successCB);
 
 
 		

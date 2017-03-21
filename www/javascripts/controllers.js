@@ -68,10 +68,13 @@ $('document').ready(function(){
   var username = localStorage.getItem('username');
 
   if (username != ""){
+    var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     fn.load('profile.html');
     checkCurrentWeek();
+    console.log(weeklisthead[0][0].length);
   }
   else {
+    var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     fn.load('login.html');
   }
 
@@ -103,7 +106,7 @@ var signup = function() {
         fn.load('duedatecalc.html');
         }
         
-    var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+    //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     db.transaction(populateDB,errorCB,successCB);
     }
 
@@ -126,8 +129,8 @@ var login = function(){
 
   if ((username != NULL) && (password != NULL)) {
     
-    $('document').ready(function(){
-      var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+    //$('document').ready(function(){
+      //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user WHERE username=? and password=?', [username,password], querySuccess, errorCB);
@@ -145,7 +148,7 @@ var login = function(){
     
       function errorCB(err){
         alert("Error" + err.code);  }
-    });
+    //});
   }
   else { ons.notification.alert("Invalid input!") }
   
@@ -165,7 +168,7 @@ var calcCurrentWeek = function() {
 
   var lmp_date = last_menstrual_period.getFullYear()+'-'+ last_menstrual_period.getMonth() +'-'+ last_menstrual_period.getDate();
   
-  console.log(lmp_date);
+  //console.log(lmp_date);
 
   var estimated_gestational_age = today - last_menstrual_period;
   estimated_gestational_age = estimated_gestational_age/86400000;
@@ -177,8 +180,8 @@ var calcCurrentWeek = function() {
   }
   else
   {
-    $('document').ready(function(){
-      var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+    //$('document').ready(function(){
+      //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
       db.transaction(function(tx){
         tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
@@ -196,7 +199,7 @@ var calcCurrentWeek = function() {
     
       function errorCB(err){
         alert("Error" + err.code);  }
-    });
+    //});
 
     localStorage.setItem("username", username);
     profileloader();
@@ -211,7 +214,7 @@ var displayinfo = function() {
 
   var currentweek = localStorage.getItem('currentweek');
 
-  var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+  //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_info WHERE id=?', [currentweek], querySuccess, errorCB);
@@ -241,7 +244,7 @@ var displaylist = function() {
 
   var currentweek = localStorage.getItem('currentweek');
 
-  var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+  //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_info WHERE id=?', [currentweek], querySuccess, errorCB);
@@ -273,7 +276,7 @@ var checkCurrentWeek = function () {
 
   var username = localStorage.getItem('username');
 
-  var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+  //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
@@ -324,4 +327,7 @@ var checkCurrentWeek = function () {
         alert("Error" + err.code);  }
 
 };
+
+//store weekly info
+
 
