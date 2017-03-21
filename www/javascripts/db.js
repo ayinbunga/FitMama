@@ -10,6 +10,8 @@
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, password)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_info(id INTEGER NOT NULL PRIMARY KEY, info)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY, week, activity)');
+
 		
 
 

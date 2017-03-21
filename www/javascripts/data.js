@@ -12,8 +12,8 @@ week[7]= "week8";
 week[8]= "week9";
 week[9]= "week10";
 week[10]= "week11";
-week[11]= "Your due date will be calculated from the first day of your last menstrual period. Conception occurs about two weeks from this day, and that's when you're truly considered pregnant. In just 40 short weeks, your baby will grow from the size of a tiny seed to the size of a plump watermelon.";
-week[12]= "Your due date will be calculated from the first day of your last menstrual period. Conception occurs about two weeks from this day, and that's when you're truly considered pregnant. In just 40 short weeks, your baby will grow from the size of a tiny seed to the size of a plump watermelon.";
+week[11]= "week12";
+week[12]= "week13";
 week[13]= "week14";
 week[14]= "week15";
 week[15]= "week16";
@@ -69,5 +69,7 @@ var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
 
 	var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
 	db.transaction(populateDB,errorCB,successCB);
+
+
 		
 

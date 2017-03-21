@@ -18,6 +18,7 @@
   
   <script type="text/javascript" src="javascripts/db.js"></script>
   <script type="text/javascript" src="javascripts/data.js"></script>
+  <script type="text/javascript" src="javascripts/todo.js"></script>
 
 </head>
 
@@ -41,7 +42,7 @@
         <!-- ons-list-item onclick="fn.load('login.html')" tappable>
           Login
         </ons-list-item -->
-        <ons-list-item onclick="fn.load('plan.html')" tappable>
+        <ons-list-item onclick="planloader()" tappable>
           Exercise Plan
         </ons-list-item>
         <ons-list-item onclick="timelineloader()" tappable>
@@ -228,7 +229,44 @@
         EXERCISE PLAN
       </div>
     </ons-toolbar>
-    NULL
+    <div align="center">
+    <text id="current_user" hidden="hidden"></text>
+    <br><br>
+    <text class="customheader2">WEEK <text id="weeks"></text></text>
+    </div>
+
+    <br><br>
+    
+    <ul class="list list--material" id="todo-list">
+  
+  <li class="list__item list__item--material">
+    <div class="list__item__left list__item--material__left">
+      <label class="checkbox checkbox--material">
+        <input type="checkbox" id="checkbox3" class="checkbox__input checkbox--material__input">
+        <div class="checkbox__checkmark checkbox--material__checkmark"></div>
+      </label>
+    </div>
+
+    <label for="checkbox3" class="list__item__center list__item--material__center">
+      <div class="list__item__title list__item--material__title">Notifications</div>
+    </label>
+  </li>
+
+  <li class="list__item list__item--material">
+    <div class="list__item__left list__item--material__left">
+      <label class="checkbox checkbox--material">
+        <input type="checkbox" id="checkbox4" class="checkbox__input checkbox--material__input" checked="checked">
+        <div class="checkbox__checkmark checkbox--material__checkmark"></div>
+      </label>
+    </div>
+
+    <label for="checkbox4" class="list__item__center list__item--material__center">
+      <div class="list__item__title list__item--material__title">Sound</div>
+    </label>
+  </li>
+
+</ul>
+  
   </ons-page>
 </ons-template>
 

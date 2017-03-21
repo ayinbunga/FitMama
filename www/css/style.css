@@ -54,3 +54,9 @@ $colors: (
 	height: 200px;
 	overflow:scroll;
 }
+
+.customheader2 {
+	font-size: 50px;
+	color: #E61243;
+	font-weight: 2;
+}
