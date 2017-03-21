@@ -1,5 +1,3 @@
-
-
 var weeklist1, weeklist2, weeklist3 = [];
 
 weeklist1 = ["todo1","todo2", "todo3"];

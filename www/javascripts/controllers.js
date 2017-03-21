@@ -30,13 +30,25 @@ var timelineloader = function() {
   checkCurrentWeek();
   displayinfo();
   fn.load('timeline.html');
-}
+};
 
 var planloader = function() {
   checkCurrentWeek();
   fn.load('plan.html');
   displaylist();
-}
+};
+
+var showPopover = function(target) {
+  document
+    .getElementById('popover')
+    .show(target);
+};
+
+var hidePopover = function() {
+  document
+    .getElementById('popover')
+    .hide();
+};
 
 //logout function
 
@@ -239,7 +251,7 @@ var displaylist = function() {
       var len = results.rows.length;  
           if(len > 0){
             for(i = 0;i < len; i++) {
-              $("#todo-list").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).info + "</div> </label> </li>")
+              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).info + "</div> </label> </li>")
               //$("#todo-list").listview('refresh');
             }
           }

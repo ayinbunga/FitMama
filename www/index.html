@@ -15,11 +15,6 @@
   <script src="jquery-mobile/jquery-1.11.1.min.js"></script>
   <!-- script src="jquery-mobile/jquery.mobile-1.4.5.min.js"></script -->
 
-  
-  <script type="text/javascript" src="javascripts/db.js"></script>
-  <script type="text/javascript" src="javascripts/data.js"></script>
-  <script type="text/javascript" src="javascripts/todo.js"></script>
-
 </head>
 
 <body>
@@ -32,7 +27,7 @@
     <ons-page>
       <ons-list>
       <div align="right"> <!-- text onclick="fn.close()" class="largefont"> x </text -->
-        <ons-icon icon="times" onclick="fn.close()" size="24px, material:20px"></ons-icon>
+        <ons-icon icon="ion-close" onclick="fn.close()" size="24px, material:20px"></ons-icon>
       </div>
 
       <h3 align="center"> Menu </h3>
@@ -101,7 +96,7 @@
     
     <ons-toolbar>
       <div class="center"> SIGN UP </div>
-      <div class="left"><ons-back-button>Back</ons-back-button></div>
+      <div class="left"><ons-back-button onclick="fn.load('login.html')">Back</ons-back-button></div>
     </ons-toolbar>
     
     <div style="text-align: center;">
@@ -140,7 +135,7 @@
   </ons-page>
 </ons-template>
 
-<!-- end of timeline page -->
+<!-- end of due date calculator page -->
 
 <!-- profile page -->
 
@@ -229,44 +224,28 @@
         EXERCISE PLAN
       </div>
     </ons-toolbar>
+
     <div align="center">
     <text id="current_user" hidden="hidden"></text>
     <br><br>
     <text class="customheader2">WEEK <text id="weeks"></text></text>
-    </div>
-
+    <div align="right"> <ons-button class="button--quiet" onclick="showPopover(this)"> <ons-icon icon="plus"></ons-icon> </ons-button> </div>
+    <ul class="list list--material" id="todolist"> </ul>
     <br><br>
+
+    <ons-popover id="popover">
+      <div class="addform">
+      <br>
+      <textarea class="textarea" rows="3" placeholder="Activity desciption" id="new_activity"></textarea>
+      <br><br>
+      <div align="right">
+      <ons-button class="button button--material--flat"> OK </ons-button> 
+      <ons-button class="button button--material--flat" onclick="hidePopover()"> CANCEL </ons-button>
+      </div>
+      </div>
+    </ons-popover>
     
-    <ul class="list list--material" id="todo-list">
-  
-  <li class="list__item list__item--material">
-    <div class="list__item__left list__item--material__left">
-      <label class="checkbox checkbox--material">
-        <input type="checkbox" id="checkbox3" class="checkbox__input checkbox--material__input">
-        <div class="checkbox__checkmark checkbox--material__checkmark"></div>
-      </label>
     </div>
-
-    <label for="checkbox3" class="list__item__center list__item--material__center">
-      <div class="list__item__title list__item--material__title">Notifications</div>
-    </label>
-  </li>
-
-  <li class="list__item list__item--material">
-    <div class="list__item__left list__item--material__left">
-      <label class="checkbox checkbox--material">
-        <input type="checkbox" id="checkbox4" class="checkbox__input checkbox--material__input" checked="checked">
-        <div class="checkbox__checkmark checkbox--material__checkmark"></div>
-      </label>
-    </div>
-
-    <label for="checkbox4" class="list__item__center list__item--material__center">
-      <div class="list__item__title list__item--material__title">Sound</div>
-    </label>
-  </li>
-
-</ul>
-  
   </ons-page>
 </ons-template>
 
@@ -310,7 +289,11 @@
 </ons-template>
 
 <!-- end of timeline page -->
+
 <script type="text/javascript" src="javascripts/controllers.js"></script>
+<script type="text/javascript" src="javascripts/db.js"></script>
+<script type="text/javascript" src="javascripts/data.js"></script>
+<script type="text/javascript" src="javascripts/todo.js"></script>
 
 </body>
 </html>
