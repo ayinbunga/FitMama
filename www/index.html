@@ -150,23 +150,60 @@
       </div>
       <div class="center"> PROFILE </div>
     </ons-toolbar>
-    
+
     <div align="center">
-      &nbsp;
+    &nbsp;
       <table>
       <tr>
       <td>
-      <img src="img/temp.JPG" id="profilepic" height="100px" width="100px" class="img-circle">
+      <label for="changephoto">
+      <input id="changephoto" type="file" style="display: none;" onchange="previewFile()">
+      <img src="#" id="profilepic" height="100px" width="100px" class="img-circle">
+      </label>
       </td>
       <td>&nbsp;</td>
       <td>
-      <text class="largefont" id="current_user"> </text> <br>
+      <div align="right">
+       <ons-icon icon="md-edit" onclick="showDialog('editprofile_form')"></ons-icon> </text>
+      </div>
+      <text class="largefont" id="current_user"> </text><br>
       <text class="smallfont"> You are currently <text id="weeks"></text> weeks pregnant </text>
       </td>
       </tr>
       </table>
       &nbsp;
     </div>
+    
+    <ons-dialog id="editprofilepic">
+      
+      <img src="#" id="profilepic" height="100px" width="100px" class="img-circle">
+
+        <div align="right">
+        <ons-button class="button button--material--flat" onclick="editimg()"> OK </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('editprofile_form')"> CANCEL </ons-button>
+        </div>
+
+      </div>
+
+    </ons-dialog>
+      
+
+    <ons-dialog id="editprofile_form">
+      <div style="padding: 10px;" align="center">
+        <br>
+        <ons-input type="text" modifier="underbar" class="input" id="firstname" placeholder="First name"></ons-input>
+        <ons-input type="text" modifier="underbar" class="input" id="lastname" placeholder="Last name"></ons-input>
+        <!--ons-input type="text" modifier="underbar" class="input" id="username"></ons-input>
+        <ons-input type="text" modifier="underbar" class="input" id="duedate"></ons-input-->
+        <div align="right">
+        <ons-button class="button button--material--flat" onclick="editprofile()"> OK </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('editprofile_form')"> CANCEL </ons-button>
+        </div>
+      </div>
+    </ons-dialog>
+
+
+
 
     <div class="tab-bar tab-bar--top tab-bar--top-border">
       <label class="tab-bar__item tab-bar--top-border__item">
@@ -227,6 +264,7 @@
 
     <div align="center">
     <text id="current_user" hidden="hidden"></text>
+    <img src="#" id="profilepic" class="img-circle" hidden="hidden">
     <br><br>
     <text class="customheader2">WEEK <text id="weeks"></text></text>
     <br><br>
@@ -238,7 +276,7 @@
         <br>
         <textarea class="textarea" rows="5" placeholder="Activity desciption" id="new_activity"></textarea>
         <div align="right">
-        <ons-button class="button button--material--flat"> OK </ons-button> 
+        <ons-button class="button button--material--flat" onclick="addactivity()"> OK </ons-button> 
         <ons-button class="button button--material--flat" onclick="hideDialog('addform')"> CANCEL </ons-button>
         </div>
       </div>
@@ -296,6 +334,28 @@
 <script type="text/javascript" src="javascripts/controllers.js"></script>
 <script type="text/javascript" src="javascripts/db.js"></script>
 <script type="text/javascript" src="javascripts/data.js"></script>
+
+<script>
+  
+  function previewFile(){
+       var preview = document.querySelector('img'); //selects the query named img
+       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var reader  = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+       }
+
+       if (file) {
+           reader.readAsDataURL(file); //reads the data as a URL
+       } else {
+           preview.src = "";
+       }
+  }
+
+  previewFile();  //calls the function named previewFile()
+
+</script>
 
 </body>
 </html>
