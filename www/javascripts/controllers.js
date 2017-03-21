@@ -50,6 +50,19 @@ var hidePopover = function() {
     .hide();
 };
 
+var showDialog = function(id) {
+  document
+    .getElementById(id)
+    .show();
+};
+
+var hideDialog = function(id) {
+  document
+    .getElementById(id)
+    .hide();
+};
+
+
 //logout function
 
 var logout = function() {
@@ -106,7 +119,6 @@ var signup = function() {
         fn.load('duedatecalc.html');
         }
         
-    //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     db.transaction(populateDB,errorCB,successCB);
     }
 
@@ -128,9 +140,6 @@ var login = function(){
   localStorage.setItem("username", username);
 
   if ((username != NULL) && (password != NULL)) {
-    
-    //$('document').ready(function(){
-      //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user WHERE username=? and password=?', [username,password], querySuccess, errorCB);
@@ -148,7 +157,6 @@ var login = function(){
     
       function errorCB(err){
         alert("Error" + err.code);  }
-    //});
   }
   else { ons.notification.alert("Invalid input!") }
   
@@ -167,8 +175,6 @@ var calcCurrentWeek = function() {
   last_menstrual_period.setDate ( last_menstrual_period.getDate() - 280 );
 
   var lmp_date = last_menstrual_period.getFullYear()+'-'+ last_menstrual_period.getMonth() +'-'+ last_menstrual_period.getDate();
-  
-  //console.log(lmp_date);
 
   var estimated_gestational_age = today - last_menstrual_period;
   estimated_gestational_age = estimated_gestational_age/86400000;
@@ -180,9 +186,6 @@ var calcCurrentWeek = function() {
   }
   else
   {
-    //$('document').ready(function(){
-      //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
-        
       db.transaction(function(tx){
         tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
                   tx.executeSql('INSERT INTO user_profile(username, lmp_date, duedate) VALUES(?, ?, ?)', [username, lmp_date, thedate]);
@@ -199,7 +202,6 @@ var calcCurrentWeek = function() {
     
       function errorCB(err){
         alert("Error" + err.code);  }
-    //});
 
     localStorage.setItem("username", username);
     profileloader();
@@ -213,8 +215,6 @@ var calcCurrentWeek = function() {
 var displayinfo = function() {
 
   var currentweek = localStorage.getItem('currentweek');
-
-  //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_info WHERE id=?', [currentweek], querySuccess, errorCB);
@@ -243,19 +243,16 @@ var displayinfo = function() {
 var displaylist = function() {
 
   var currentweek = localStorage.getItem('currentweek');
-
-  //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
         
   db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM weekly_info WHERE id=?', [currentweek], querySuccess, errorCB);
+    tx.executeSql('SELECT * FROM weekly_list WHERE week = ?', [currentweek], querySuccess, errorCB);
   });
 
   function querySuccess(tx, results){
       var len = results.rows.length;  
           if(len > 0){
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).info + "</div> </label> </li>")
-              //$("#todo-list").listview('refresh');
+              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).activity + "</div> </label> </li>");
             }
           }
 

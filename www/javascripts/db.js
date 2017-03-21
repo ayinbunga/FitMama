@@ -10,7 +10,7 @@
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, password)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, lmp_date, duedate)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_info(id INTEGER NOT NULL PRIMARY KEY, info)');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY, week, activity)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(week INTEGER, activity)');
 	});
 
 
@@ -70,13 +70,13 @@ $('document').ready(function(){
 
   function populateDB(tx){
     tx.executeSql('DROP TABLE IF EXISTS weekly_list');  
-    tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY, week, activity)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(week INTEGER, activity)');
 
     for(i=0; i<42; i++) {
       for( x=0; x < 3; x++) {
-      tx.executeSql('INSERT INTO weekly_list(week, activity) VALUES(?,?)', [i+1, weeklisthead[i][x] ]);
-    }
-    //tx.executeSql('INSERT INTO weekly_info(info) VALUES(?)', [week_2]);
+      	tx.executeSql('INSERT INTO weekly_list(week, activity) VALUES(?,?)', [i+1, weeklisthead[i][x] ]);
+    	}
+    
     }
   }
           

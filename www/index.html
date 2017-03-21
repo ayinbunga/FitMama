@@ -229,21 +229,24 @@
     <text id="current_user" hidden="hidden"></text>
     <br><br>
     <text class="customheader2">WEEK <text id="weeks"></text></text>
-    <div align="right"> <ons-button class="button--quiet" onclick="showPopover(this)"> <ons-icon icon="plus"></ons-icon> </ons-button> </div>
-    <ul class="list list--material" id="todolist"> </ul>
     <br><br>
+    
+    <ul class="list list--material" id="todolist"> </ul>
 
-    <ons-popover id="popover">
-      <div class="addform">
-      <br>
-      <textarea class="textarea" rows="3" placeholder="Activity desciption" id="new_activity"></textarea>
-      <br><br>
-      <div align="right">
-      <ons-button class="button button--material--flat"> OK </ons-button> 
-      <ons-button class="button button--material--flat" onclick="hidePopover()"> CANCEL </ons-button>
+    <ons-dialog id="addform">
+      <div style="padding: 10px;">
+        <br>
+        <textarea class="textarea" rows="5" placeholder="Activity desciption" id="new_activity"></textarea>
+        <div align="right">
+        <ons-button class="button button--material--flat"> OK </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('addform')"> CANCEL </ons-button>
+        </div>
       </div>
-      </div>
-    </ons-popover>
+    </ons-dialog>
+
+    <ons-fab position="bottom right">
+      <ons-icon icon="md-plus" onclick="showDialog('addform')"></ons-icon>
+    </ons-fab>
     
     </div>
   </ons-page>
@@ -268,7 +271,7 @@
     
     <div align="center">
       <br><br><br>
-      <text id="current_user" hidden="hidden"></text>. 
+      <text id="current_user" hidden="hidden"></text>
       <text>You are currently</text>
       <br>
       <text class="customheader"> <text id="weeks" style="font-size: 50px"></text> weeks </text>
