@@ -160,6 +160,7 @@ var calcCurrentWeek = function() {
 
 
   var thedate = $("#duedate").val();
+  //console.log(thedate);
   var today = new Date();
   var last_menstrual_period = new Date(thedate);
   
@@ -257,6 +258,42 @@ var checkCurrentWeek = function () {
                 //$('#firstname').append(firstname);
               }
               
+              // Set the date we're counting down to
+      var getDueDate = localStorage.getItem('duedate');
+      var duedate = new Date(getDueDate);
+
+      var countDownDate = new Date(duedate).getTime();
+
+      // Update the count down every 1 second
+      var x = setInterval(function() {
+
+      // Get todays date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      document.getElementById("demo").innerHTML = "<table width='100%' style='text-align: center;'> <tr class='customheader'> <td>" 
+      + days + "</td><td>"
+      + hours + "</td><td>"
+      + minutes + "</td><td>" + seconds 
+      + "</td></tr> <tr><td>days</td><td>hours</td><td>minutes</td><td>seconds</td></tr></table>"
+      ;
+
+      // If the count down is finished, write some text 
+      if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+
+      }, 1000);
 
             }
 
@@ -270,7 +307,11 @@ var checkCurrentWeek = function () {
       function errorCB(err){
         alert("Error" + err.code);  }
 
+/*
+*/
+
 };
+
 
 //add new activity
 
@@ -380,16 +421,16 @@ var displaylist = function() {
 
 var editprofile = function() {
 
-var username = localStorage.getItem('username');
-var firstname = $("#firstname").val();
-var lastname = $("#lastname").val();
+  var username = localStorage.getItem('username');
+  var firstname = $("#firstname").val();
+  var lastname = $("#lastname").val();
         
-db.transaction(function (tx) {
+  db.transaction(function (tx) {
         tx.executeSql('UPDATE user_profile SET firstname=?, lastname=? WHERE username = ?', [firstname, lastname, username]);
     });
 
 
-profileloader();
+  profileloader();
 
 };
 
@@ -409,6 +450,9 @@ var editimg = function() {
   profileloader();
 
 };
+
+
+
 
 
 
