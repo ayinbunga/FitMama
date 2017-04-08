@@ -43,6 +43,9 @@
         <ons-list-item onclick="timelineloader()" tappable>
           Timeline
         </ons-list-item>
+        <ons-list-item onclick="fn.load('exercise.html')" tappable>
+          Exercise
+        </ons-list-item>
         <ons-list-item onclick="logout()" tappable>
           Log out
         </ons-list-item>
@@ -59,8 +62,6 @@
   <ons-navigator id="myNavigator" page="profile.html"></ons-navigator>
   </ons-page>
 </ons-template>
-
-<!-- end of side menu -->
 
 
 <!-- login page -->
@@ -87,7 +88,6 @@
   </ons-page>
 </ons-template>
 
-<!-- end of login page -->
 
 <!-- signup page -->
 
@@ -113,7 +113,6 @@
   </ons-page>
 </ons-template>
 
-<!-- end of signup page -->
 
 <!-- due date calculator page -->
 
@@ -135,7 +134,6 @@
   </ons-page>
 </ons-template>
 
-<!-- end of due date calculator page -->
 
 <!-- profile page -->
 
@@ -247,7 +245,6 @@
   </ons-page>
 </ons-template>
 
-<!-- end of profile page -->
 
 <!-- plan page -->
 
@@ -292,7 +289,6 @@
   </ons-page>
 </ons-template>
 
-<!-- end of plan page -->
 
 <!-- timeline page -->
 
@@ -338,7 +334,36 @@
   </ons-page>
 </ons-template>
 
-<!-- end of timeline page -->
+<!-- exercise page -->
+
+<ons-template id="exercise.html">
+  <ons-page id="exercise">
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        EXERCISE
+      </div>
+    </ons-toolbar>
+
+    <div align="center">
+    &nbsp; &nbsp;
+    <p> Choose the exercise type </p>
+    &nbsp;
+    <p> <ons-button class="ctmbtn" style="background-color: #FAC090;"> BASIC </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #C0504D;"> STRETCHING </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #E59FC2;"> YOGA </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #FD5341;"> PILATES </ons-button> </p>
+    </div>
+    
+
+
+  </ons-page>
+</ons-template>
+
 
 <script type="text/javascript" src="javascripts/controllers.js"></script>
 <script type="text/javascript" src="javascripts/db.js"></script>

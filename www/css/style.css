@@ -76,3 +76,11 @@ $colors: (
 	font-weight: 2;
 }
 
+.ctmbtn {
+	width: 80%;
+	height: 50px;
+	font-size: 30px;
+	line-height: 50px;
+	text-align: center;
+}
+

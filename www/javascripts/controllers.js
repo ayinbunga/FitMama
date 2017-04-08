@@ -136,7 +136,8 @@ var login = function(){
         var len = results.rows.length;
           if(len > 0){
             checkCurrentWeek();
-            fn.load('profile.html');
+            profileloader();
+            location.reload();
               }
         else {
           ons.notification.alert("Invalid input!") }
@@ -280,8 +281,7 @@ var checkCurrentWeek = function () {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
-      document.getElementById("demo").innerHTML = "<table width='100%' style='text-align: center;'> <tr class='customheader'> <td>" 
-      + days + "</td><td>"
+      document.getElementById("demo").innerHTML = "<table width='100%' style='text-align: center;'> <tr class='customheader'> <td>" + days + "</td><td>"
       + hours + "</td><td>"
       + minutes + "</td><td>" + seconds 
       + "</td></tr> <tr><td>days</td><td>hours</td><td>minutes</td><td>seconds</td></tr></table>"
@@ -450,6 +450,7 @@ var editimg = function() {
   profileloader();
 
 };
+
 
 
 
