@@ -28,6 +28,7 @@ var profileloader = function() {
 
 var timelineloader = function() {
   checkCurrentWeek();
+  countdownActivate();
   displayinfo();
   fn.load('timeline.html');
 };
@@ -259,41 +260,7 @@ var checkCurrentWeek = function () {
                 //$('#firstname').append(firstname);
               }
               
-              // Set the date we're counting down to
-      var getDueDate = localStorage.getItem('duedate');
-      var duedate = new Date(getDueDate);
-
-      var countDownDate = new Date(duedate).getTime();
-
-      // Update the count down every 1 second
-      var x = setInterval(function() {
-
-      // Get todays date and time
-      var now = new Date().getTime();
-
-      // Find the distance between now an the count down date
-      var distance = countDownDate - now;
-
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Display the result in the element with id="demo"
-      document.getElementById("demo").innerHTML = "<table width='100%' style='text-align: center;'> <tr class='customheader'> <td>" + days + "</td><td>"
-      + hours + "</td><td>"
-      + minutes + "</td><td>" + seconds 
-      + "</td></tr> <tr><td>days</td><td>hours</td><td>minutes</td><td>seconds</td></tr></table>"
-      ;
-
-      // If the count down is finished, write some text 
-      if (distance < 0) {
-          clearInterval(x);
-          document.getElementById("demo").innerHTML = "EXPIRED";
-      }
-
-      }, 1000);
+             
 
             }
 
@@ -382,8 +349,18 @@ var displaylist = function() {
   function querySuccess(tx, results){
       var len = results.rows.length;  
           if(len > 0){
+            document.getElementById("tdweeks").innerHTML = currentweek;
             for(i = 0;i < len; i++) {
               $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).activity + "</div> </label> </li>");
+            }
+
+            for(x = 1; x < 43; x++) {
+              if (x<10) {
+                $("#weekly-todo-btn").append("<text class='circletext' id='tdweek"+x+"' onclick='displayToDo("+x+")'>0"+ x + "</text>");
+              } 
+              else {
+                $("#weekly-todo-btn").append("<text class='circletext' id='tdweek"+x+"' onclick='displayToDo("+x+")'>"+ x + "</text>");
+              }
             }
           }
 
@@ -395,25 +372,6 @@ var displaylist = function() {
   function errorCB(err){
       alert("Error" + err.code);  }
 
-  db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM user_activity WHERE username=? AND week=?', [username, currentweek], querySuccess, errorCB);
-  });
-
-  function querySuccess(tx, results){
-      var len = results.rows.length;  
-          if(len > 0){
-            for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).activity + "</div> </label> </li>");
-            }
-          }
-
-          else {
-
-          }
-  }
-      
-  function errorCB(err){
-      alert("Error" + err.code);  }
 
 };
 
@@ -434,6 +392,46 @@ var editprofile = function() {
 
 };
 
+//baby due date countdown
+
+var countdownActivate = function() {
+
+      var getDueDate = localStorage.getItem('duedate');
+      var duedate = new Date(getDueDate);
+
+      var countDownDate = new Date(duedate).getTime();
+
+      // Update the count down every 1 second
+      var x = setInterval(function() {
+
+      // Get todays date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      document.getElementById("demo").innerHTML = "<table width='100%' style='text-align: center;'> <tr class='customheader'> <td>" + days + "</td><td>"
+      + hours + "</td><td>"
+      + minutes + "</td><td>" + seconds 
+      + "</td></tr> <tr><td>days</td><td>hours</td><td>minutes</td><td>seconds</td></tr></table>"
+      ;
+
+      // If the count down is finished, write some text 
+      if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+
+      }, 1000);
+}
+
 //edit profile img
 
 var editimg = function() {
@@ -450,6 +448,40 @@ var editimg = function() {
   profileloader();
 
 };
+
+//display to-do-lists
+
+var displayToDo = function(x) {
+
+  var username = localStorage.getItem('username');
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM weekly_list WHERE week = ?', [x], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
+          if(len > 0){
+            $("#tdweeks").empty();
+            document.getElementById("tdweeks").innerHTML = x;
+            $("#todolist").empty();
+
+            for(i = 0;i < len; i++) {
+              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).activity + "</div> </label> </li>");
+            }
+          }
+
+          else {
+
+          }
+  }
+      
+  function errorCB(err){
+      alert("Error" + err.code);  }
+
+
+};
+
 
 
 

@@ -77,12 +77,13 @@
       <br><br>
         <img src="img/logo2.png" height="200px" width="200px">
       <br> <br> <br>
-        <ons-input id="login_username" modifier="underbar" placeholder="Username" float required class="input" font-> </ons-input>
+        <ons-input id="login_username" modifier="underbar" placeholder="Username" float required class="input" > </ons-input>
           <br>
         <ons-input id="login_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
           <br>
         <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
         <p onclick="fn.load('signup.html')"> Create New Account </p>
+        <p id="demo" hidden="hidden"></p>
     </div>
   
   </ons-page>
@@ -108,6 +109,7 @@
         <ons-input id="signup_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
           <br>
         <ons-button onclick="signup()" class="inputbtn" id="signupbtn"> Sign Up </ons-button>
+        <p id="demo" hidden="hidden"></p>
     </div>
   
   </ons-page>
@@ -130,6 +132,7 @@
     <input type="date" class="datepicker" id="lmp_date"> </input>
     <br><br>
     <ons-button class="inputbtn" onclick="calcCurrentWeek()"> Submit </ons-button>
+    <p id="demo" hidden="hidden"></p>
     </div>
   </ons-page>
 </ons-template>
@@ -265,7 +268,8 @@
     <text id="current_user" hidden="hidden"></text>
     <img src="#" id="profilepic" class="img-circle" hidden="hidden">
     <br><br>
-    <text class="customheader2">WEEK <text id="weeks"></text></text>
+    <p id="weeks" hidden="hidden"></p>
+    <text class="customheader2">WEEK <text id="tdweeks"></text></text>
     <br><br>
     
     <ul class="list list--material" id="todolist"> </ul>
@@ -281,9 +285,14 @@
       </div>
     </ons-dialog>
 
-    <ons-fab position="bottom right">
+    <p id="demo" hidden="hidden"></p>
+
+    <ons-fab position="bottom right" style="margin-bottom: 70px" ripple>
       <ons-icon icon="md-plus" onclick="showDialog('addform')"></ons-icon>
     </ons-fab>
+
+    <div id="weekly-todo-btn" class="horiz-scroll">
+    </div>
     
     </div>
   </ons-page>
@@ -349,14 +358,45 @@
       </div>
     </ons-toolbar>
 
+    <p id="demo" hidden="hidden"></p>
+
     <div align="center">
     &nbsp; &nbsp;
     <p> Choose the exercise type </p>
     &nbsp;
-    <p> <ons-button class="ctmbtn" style="background-color: #FAC090;"> BASIC </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #FAC090;" onclick="fn.load('basic_exercise.html')"> BASIC </ons-button> </p>
     <p> <ons-button class="ctmbtn" style="background-color: #C0504D;"> STRETCHING </ons-button> </p>
     <p> <ons-button class="ctmbtn" style="background-color: #E59FC2;"> YOGA </ons-button> </p>
     <p> <ons-button class="ctmbtn" style="background-color: #FD5341;"> PILATES </ons-button> </p>
+    </div>
+    
+
+
+  </ons-page>
+</ons-template>
+
+<!-- basic exercise page -->
+
+<ons-template id="basic_exercise.html">
+  <ons-page id="basic_exercise">
+    <ons-toolbar>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        BASIC EXERCISE
+      </div>
+    </ons-toolbar>
+
+    <div align="center">
+    <p id="demo" hidden="hidden"></p>
+    
+    <video id="myVideo" controls>
+  <source src="videos/video1.mp4" type="video/mp4">
+   Your browser does not support the video tag.
+</video>
     </div>
     
 
@@ -391,6 +431,19 @@
 */
 
 </script>
+
+<script>
+    $( document ).ready(function() {
+    $("#myVideo").bind("ended",function(){
+    $("#myVideo source").attr("src","videos/video2.mp4");
+    $("#myVideo")[0].load();
+    $("#myVideo")[0].play();
+    });
+});
+
+
+</script>
+
 
 
 </body>

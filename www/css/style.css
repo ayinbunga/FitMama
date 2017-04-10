@@ -55,6 +55,18 @@ $colors: (
 	overflow:scroll;
 }
 
+.horiz-scroll {
+	bottom: 0;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	width: 100%;
+	overflow-x: scroll;
+	position: fixed;
+	background-color: #FC8585;
+
+}
+
 
 .addform {
 	margin: 0px; 
@@ -84,3 +96,16 @@ $colors: (
 	text-align: center;
 }
 
+video {
+    width: 100%;
+    height: auto;
+}
+
+.circletext {
+	border-radius: 100px;
+	border: 2px solid white;
+    color : white;
+    padding : 15px 15px;
+    margin: 8px;
+    font-size: 20px;
+}
