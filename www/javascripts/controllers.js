@@ -417,7 +417,7 @@ var countdownActivate = function() {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
-      document.getElementById("demo").innerHTML = "<table width='100%' style='text-align: center;'> <tr class='customheader'> <td>" + days + "</td><td>"
+      document.getElementById("demo").innerHTML = "<table width='90%' style='border: 1px solid #F6A67B; text-align: center;'> <tr class='customheader'> <td>" + days + "</td><td>"
       + hours + "</td><td>"
       + minutes + "</td><td>" + seconds 
       + "</td></tr> <tr><td>days</td><td>hours</td><td>minutes</td><td>seconds</td></tr></table>"
@@ -482,6 +482,57 @@ var displayToDo = function(x) {
 
 };
 
+var playVideo = function() {
+
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM weekly_list', [], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
+          if(len > 0){
+
+            var x=2;
+
+            $("#myVideo").bind("ended",function(){
+              
+
+              function run() {
+                  $("#myVideo source").attr("src","videos/video"+x+".mp4");
+                  $("#myVideo")[0].load();
+                  $("#myVideo")[0].play();
+                  x++;
+              }
+
+              if(x!=5) {
+                run();
+              }
+              else {
+                document.getElementById("videoPlayer").innerHTML = ("<p> Exercise session completed </p>");
+
+              }
+
+
+
+          });
+            
+          }
+
+          else {
+
+          }
+  }
+      
+  function errorCB(err){
+      alert("Error" + err.code);  }
+  
+};
+
+
+var basicloader = function(){
+  fn.load('basic_exercise.html');
+  playVideo();
+};
 
 
 

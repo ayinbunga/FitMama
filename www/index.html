@@ -38,7 +38,7 @@
           Login
         </ons-list-item -->
         <ons-list-item onclick="planloader()" tappable>
-          Exercise Plan
+          To Do Lists
         </ons-list-item>
         <ons-list-item onclick="timelineloader()" tappable>
           Timeline
@@ -260,7 +260,7 @@
         </ons-toolbar-button>
       </div>
       <div class="center">
-        EXERCISE PLAN
+        TO DO LISTS
       </div>
     </ons-toolbar>
 
@@ -326,9 +326,10 @@
       <br> <br>
     </div>
 
-      <p class="customheader3">Baby Due Date Countdown</p>
-      <div id="demo"></div>
+    <p> <img src="img/baby.jpg" width="150px" height="150px" class="img-circle"> </p>
 
+      <text class="customheader3">Baby Due Date Countdown</text>
+      <div id="demo"></div>
 
       <div class="card">
         <h4> BABY INFO </h4>
@@ -364,7 +365,7 @@
     &nbsp; &nbsp;
     <p> Choose the exercise type </p>
     &nbsp;
-    <p> <ons-button class="ctmbtn" style="background-color: #FAC090;" onclick="fn.load('basic_exercise.html')"> BASIC </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #FAC090;" onclick="basicloader()"> BASIC </ons-button> </p>
     <p> <ons-button class="ctmbtn" style="background-color: #C0504D;"> STRETCHING </ons-button> </p>
     <p> <ons-button class="ctmbtn" style="background-color: #E59FC2;"> YOGA </ons-button> </p>
     <p> <ons-button class="ctmbtn" style="background-color: #FD5341;"> PILATES </ons-button> </p>
@@ -390,13 +391,14 @@
       </div>
     </ons-toolbar>
 
-    <div align="center">
-    <p id="demo" hidden="hidden"></p>
+    <div align="center" id="videoPlayer">
     
-    <video id="myVideo" controls>
-  <source src="videos/video1.mp4" type="video/mp4">
-   Your browser does not support the video tag.
-</video>
+    <video id="myVideo" autoplay>
+      <source src="videos/video1.mp4" type="video/mp4" id="ss">
+        Your browser does not support the video tag.
+    </video>
+
+     <p id="demo" hidden="hidden"></p>
     </div>
     
 
@@ -431,20 +433,6 @@
 */
 
 </script>
-
-<script>
-    $( document ).ready(function() {
-    $("#myVideo").bind("ended",function(){
-    $("#myVideo source").attr("src","videos/video2.mp4");
-    $("#myVideo")[0].load();
-    $("#myVideo")[0].play();
-    });
-});
-
-
-</script>
-
-
 
 </body>
 </html>
