@@ -41,6 +41,11 @@ $colors: (
 	font-size: 20px;
 }
 
+.largefont2 {
+	font-size: 24px;
+	color: #E61243;
+}
+
 .customheader {
 	font-size: 40px;
 	color: #E61243;
@@ -52,7 +57,9 @@ $colors: (
 	box-shadow: 0 1px 4px rgba(0,0,0,0.2); 
 	background-color: white; 
 	height: 200px;
+	width: 90%;
 	overflow:scroll;
+	font-size: 18px;
 }
 
 .horiz-scroll {
@@ -109,3 +116,16 @@ video {
     margin: 8px;
     font-size: 20px;
 }
+
+ul li.checked {
+    text-decoration: line-through;
+}
+
+.right{
+    float:right;
+}
+
+.left{
+    float:left;
+}
+

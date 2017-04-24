@@ -205,45 +205,31 @@
 
     <p id="demo" hidden="hidden"></p>
 
-
-
-
     <div class="tab-bar tab-bar--top tab-bar--top-border">
       <label class="tab-bar__item tab-bar--top-border__item">
-        <input type="radio" name="top-tab-bar-b" checked="checked">
-        <button class="tab-bar__button tab-bar--top-border__button">
-          Overall
+        <input type="radio" name="top-tab-bar-b" checked="checked" onclick="displayBabyDetails()">
+        <button class="tab-bar__button tab-bar--top-border__button"">
+          Your Baby 
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
         <input type="radio" name="top-tab-bar-b">
         <button class="tab-bar__button tab-bar--top-border__button">
-          Today
+          Hospital
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
         <input type="radio" name="top-tab-bar-b">
         <button class="tab-bar__button tab-bar--top-border__button">
-          This Week
+          Appointment
         </button>
       </label>
 
-      <label class="tab-bar__item tab-bar--top-border__item">
-        <input type="radio" name="top-tab-bar-b">
-        <button class="tab-bar__button tab-bar--top-border__button">
-          Past
-        </button>
-      </label>
     </div>
 
-    <ons-list>
-    <ons-list-item> <p> Average duration </p> </ons-list-item>
-    <ons-list-item> <p> Total sessions </p> </ons-list-item>
-    <ons-list-item> <p> Total time working out </p> </ons-list-item>
-    <ons-list-item> <p> Total calories burned </p> </ons-list-item>
-    </ons-list>
+    <div id="profilelist"></div>
       
   </ons-page>
 </ons-template>
@@ -264,7 +250,7 @@
       </div>
     </ons-toolbar>
 
-    <div align="center">
+    <div align="center" style="overflow: scroll; height: 90%">
     <text id="current_user" hidden="hidden"></text>
     <img src="#" id="profilepic" class="img-circle" hidden="hidden">
     <br><br>
@@ -272,7 +258,7 @@
     <text class="customheader2">WEEK <text id="tdweeks"></text></text>
     <br><br>
     
-    <ul class="list list--material" id="todolist"> </ul>
+    <ul class="list" id="todolist"> </ul>
 
     <ons-dialog id="addform">
       <div style="padding: 10px;">
@@ -331,8 +317,9 @@
       <text class="customheader3">Baby Due Date Countdown</text>
       <div id="demo"></div>
 
+      &nbsp;
+
       <div class="card">
-        <h4> BABY INFO </h4>
         <div align="justify">
         <text id="babyinfo">
         </text>

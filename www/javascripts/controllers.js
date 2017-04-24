@@ -23,6 +23,7 @@ window.fn.load = function(page) {
 
 var profileloader = function() {
   checkCurrentWeek();
+  displayBabyDetails();
   fn.load('profile.html');
 };
 
@@ -72,8 +73,7 @@ $('document').ready(function(){
 
   if (username != ""){
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
-    fn.load('profile.html');
-    checkCurrentWeek();
+    profileloader();
   }
   else {
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
@@ -188,7 +188,8 @@ var calcCurrentWeek = function() {
       function querySuccess(tx, results){
         var len = results.rows.length;
           if(len > 0){
-            fn.load('profile.html');
+              profileloader();
+              location.reload();
               }
         else {
           ons.notification.alert("Invalid input!") }
@@ -198,7 +199,8 @@ var calcCurrentWeek = function() {
         alert("Error" + err.code);  }
 
     localStorage.setItem("username", username);
-    profileloader();
+    
+
   }
 
 };
@@ -351,7 +353,7 @@ var displaylist = function() {
           if(len > 0){
             document.getElementById("tdweeks").innerHTML = currentweek;
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).activity + "</div> </label> </li>");
+              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='checkbox"+results.rows.item(i).id+"' class='checkbox__input' name='c'> <div class='checkbox__checkmark'></div> </label></div> <label for='checkbox"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
 
             for(x = 1; x < 43; x++) {
@@ -467,7 +469,7 @@ var displayToDo = function(x) {
             $("#todolist").empty();
 
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--material'> <div class='list__item__left list__item--material__left'> <label class='checkbox checkbox--material'> <input type='checkbox' id='checkbox3' class='checkbox__input checkbox--material__input'> <div class='checkbox__checkmark checkbox--material__checkmark'></div> </label></div> <label for='checkbox3' class='list__item__center list__item--material__center'> <div class='list__item__title list__item--material__title'>" + results.rows.item(i).activity + "</div> </label> </li>");
+              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='checkbox"+results.rows.item(i).id+"' class='checkbox__input' name='c'> <div class='checkbox__checkmark'></div> </label></div> <label for='checkbox"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
           }
 
@@ -534,6 +536,46 @@ var basicloader = function(){
   playVideo();
 };
 
+var displayBabyDetails = function(){
+
+  var username = localStorage.getItem('username');
+  var duedate = localStorage.getItem('duedate');
+  var currentweek = localStorage.getItem('currentweek');
+  date = new Date(duedate);
+
+  var getMonthName = function(date) { var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec" ]; return monthNames[date.getMonth()]; };
+
+  var birthdate = date.getMonth() + " " + getMonthName(date) + ", " + date.getFullYear();
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM weekly_info WHERE id = ?', [currentweek], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
+          if(len > 0){
+            for(i = 0; i < len; i++){
+            if (currentweek > 22 ) {
+                        document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ";
+          }
+            else {
+                        document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ";
+
+            }
+          }
+
+          }
+
+          else {
+
+          }
+  }
+
+   function errorCB(err){
+      alert("Error" + err.code);  }
+
+
+};
 
 
 
