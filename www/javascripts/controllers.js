@@ -1,6 +1,13 @@
 
 //side menu controller
 
+//paste this code under the head tag or in a separate js file.
+  // Wait for window load
+  $(window).load(function() {
+    // Animate loader off screen
+    $(".se-pre-con").fadeOut("slow");;
+  });
+
 window.fn = {};
 
 window.fn.open = function() {
@@ -22,10 +29,8 @@ window.fn.load = function(page) {
 };
 
 var profileloader = function() {
-
     checkCurrentWeek();
     fn.load('profile.html');
-    displayBabyDetails();
 };
     
 
@@ -72,10 +77,13 @@ var logout = function() {
 $('document').ready(function(){
 
   var username = localStorage.getItem('username');
+  var currentweek = localStorage.getItem('currentweek')
 
   if (username != ""){
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     profileloader();
+    displayBabyDetails(currentweek);
+
   }
   else {
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
@@ -143,6 +151,7 @@ var login = function(){
           if(len > 0){
             checkCurrentWeek();
             profileloader();
+
               }
         else {
           ons.notification.alert("Invalid input!") }
@@ -152,6 +161,9 @@ var login = function(){
         alert("Error" + err.code);  }
   }
   else { ons.notification.alert("Invalid input!") }
+
+    location.reload();
+
   
 };
 
@@ -234,7 +246,7 @@ var checkCurrentWeek = function () {
               var url = results.rows.item(i).iconimg;
               var NULL = "";
 
-              console.log(url);
+              //console.log(url);
 
               localStorage.setItem("lmp_date", lmp_date);
               localStorage.setItem("duedate", duedate);
@@ -258,6 +270,9 @@ var checkCurrentWeek = function () {
 
               document.getElementById("weeks").innerHTML = currentweek;
               $('#profilepic').attr('src', url);
+
+              displayBabyDetails(currentweek);
+
 
               if ( firstname != NULL || lastname != NULL ) {
                 document.getElementById("current_user").innerHTML = firstname + " " + lastname;
@@ -349,7 +364,7 @@ var displaylist = function() {
   var username = localStorage.getItem('username');
         
   db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM weekly_list WHERE week = ?', [currentweek], querySuccess, errorCB);
+    tx.executeSql('SELECT * FROM weekly_list WHERE week = ? AND username= ?', [currentweek, username], querySuccess, errorCB);
   });
 
   function querySuccess(tx, results){
@@ -529,7 +544,7 @@ var editprofileview = function() {
     }
     else {
     }
-}
+  }
 
   function errorCB(err){
     alert("Error" + err.code);  }
@@ -600,7 +615,7 @@ var displayToDo = function(x) {
   var username = localStorage.getItem('username');
         
   db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM weekly_list WHERE week = ?', [x], querySuccess, errorCB);
+    tx.executeSql('SELECT * FROM weekly_list WHERE week = ? AND username=?', [x, username], querySuccess, errorCB);
   });
 
   function querySuccess(tx, results){
@@ -678,11 +693,17 @@ var basicloader = function(){
   playVideo();
 };
 
-var displayBabyDetails = function(){
+var babyDetailscaller = function(){
+  var currentweek = localStorage.getItem('currentweek');
+  displayBabyDetails(currentweek);
+}
+
+var displayBabyDetails = function(currentweek){
+
 
   var username = localStorage.getItem('username');
   var duedate = localStorage.getItem('duedate');
-  var currentweek = localStorage.getItem('currentweek');
+  //var currentweek = localStorage.getItem('currentweek');
   date = new Date(duedate);
 
   var getMonthName = function(date) { var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec" ]; return monthNames[date.getMonth()]; };
@@ -694,15 +715,19 @@ var displayBabyDetails = function(){
   });
 
   function querySuccess(tx, results){
+    
     document.getElementById("appointbtn").setAttribute('checked','');
     document.getElementById("bbybtn").setAttribute('checked','checked');
     $("#appointlist").empty();
     $("#profilelist").empty();
-      var len = results.rows.length;  
-          if(len > 0){
+    
+    var len = results.rows.length;  
+          
+    if(len > 0){
             for(i = 0; i < len; i++){
             if (currentweek > 22 ) {
                         $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ");
+                        console.log("entered this part");
           }
             else {
                         $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ");
