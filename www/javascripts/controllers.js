@@ -22,10 +22,12 @@ window.fn.load = function(page) {
 };
 
 var profileloader = function() {
-  checkCurrentWeek();
-  fn.load('profile.html');
-  displayBabyDetails();
+
+    checkCurrentWeek();
+    fn.load('profile.html');
+    displayBabyDetails();
 };
+    
 
 var timelineloader = function() {
   checkCurrentWeek();
@@ -124,6 +126,8 @@ var login = function(){
   var username = $("#login_username").val();
   var password = $("#login_password").val();
   var NULL = "";
+
+
   
   localStorage.setItem("username", username);
 
@@ -134,6 +138,7 @@ var login = function(){
       });
       
       function querySuccess(tx, results){
+  
         var len = results.rows.length;
           if(len > 0){
             checkCurrentWeek();
@@ -446,14 +451,89 @@ var editprofile = function() {
   var username = localStorage.getItem('username');
   var firstname = $("#firstname").val();
   var lastname = $("#lastname").val();
+  
+  ons.notification.confirm(
+    {
+    message: 'Are you sure?',
+    
+    callback: function() {
+      
+      db.transaction(function(tx){
+        tx.executeSql('SELECT * FROM user WHERE username=?', [username], querySuccess, errorCB);
+      });
+
+      function querySuccess(tx, results){
+        var len = results.rows.length;  
+          
+          if(len > 0){
+            for(i = 0;i < len; i++) {
+              var password = results.rows.item(i).password; }
+          }
+          else {
+          }
+
+
+              //if(pwd == password){
+                db.transaction(function (tx) {
+                  tx.executeSql('UPDATE user_profile SET firstname=?, lastname=? WHERE username = ?', [firstname, lastname, username]);
+                });
+              
+                profileloader();
+              //}
+              //else{
+                //ons.notification.alert({
+                  //    message: 'Wrong password'
+                //});
+      //}
+      }
+      
+    function errorCB(err){
+          alert("Error" + err.code);  }
+    }
+  });
+};
+
+var editprofileview = function() {
+
+  var username = localStorage.getItem('username');
+
+  db.transaction(function(tx){
+        tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
+  });
+      
+  function querySuccess(tx, results){
+    var len = results.rows.length;
+
+    if(len > 0){
+      for(i=0; i<len ; i++) {
+      var firstname = results.rows.item(i).firstname;
+      var lastname = results.rows.item(i).lastname;
+
+      console.log(results.rows.item(i).firstname);
+      console.log(username);
+
+      document.getElementById("pro_username").setAttribute('value', username);
+
+      if(firstname != ""){
+          $("#firstname").attr("value", results.rows.item(i).firstname);
+          $("#firstname").attr("placeholder", ""); 
+      }
         
-  db.transaction(function (tx) {
-        tx.executeSql('UPDATE user_profile SET firstname=?, lastname=? WHERE username = ?', [firstname, lastname, username]);
-    });
+      if(lastname != ""){
+          $("#lastname").attr("value", results.rows.item(i).lastname);
+          $("#lastname").attr("placeholder", "");
+      }
 
+      showDialog('editprofile_form');
+      }
+    }
+    else {
+    }
+}
 
-  profileloader();
-
+  function errorCB(err){
+    alert("Error" + err.code);  }
+   
 };
 
 //baby due date countdown
@@ -652,11 +732,20 @@ var displayHospDetails = function(){
   });
 
   function querySuccess(tx, results){
+
       $("#appointlist").empty();
+      $("#profilelist").empty();
+
       var len = results.rows.length;  
           if(len > 0){
             for(i = 0; i < len; i++){
+              $("#hosp_name").attr("value", results.rows.item(i).hosp_name);
+              $("#hosp_name").attr("placeholder", "");
+              $("#doc_name").attr("value", results.rows.item(i).doctor_name);
+              $("#doc_name").attr("placeholder", "");
               document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Hospital Name: </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).hosp_name +" </p> </span> </ons-list-item> <ons-list-item> <p> Doctor's Name: </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).doctor_name +"</p> </span> </ons-list-item> </ons-list> ";
+              $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-plus' onclick='showEditHosp()'></ons-icon></ons-fab>");
+
             }
           }
   
