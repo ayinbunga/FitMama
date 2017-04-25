@@ -23,8 +23,8 @@ window.fn.load = function(page) {
 
 var profileloader = function() {
   checkCurrentWeek();
-  displayBabyDetails();
   fn.load('profile.html');
+  displayBabyDetails();
 };
 
 var timelineloader = function() {
@@ -138,7 +138,6 @@ var login = function(){
           if(len > 0){
             checkCurrentWeek();
             profileloader();
-            location.reload();
               }
         else {
           ons.notification.alert("Invalid input!") }
@@ -353,7 +352,7 @@ var displaylist = function() {
           if(len > 0){
             document.getElementById("tdweeks").innerHTML = currentweek;
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='checkbox"+results.rows.item(i).id+"' class='checkbox__input' name='c'> <div class='checkbox__checkmark'></div> </label></div> <label for='checkbox"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
+              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
 
             for(x = 1; x < 43; x++) {
@@ -376,6 +375,69 @@ var displaylist = function() {
 
 
 };
+
+var check = function(id) {
+
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM weekly_list WHERE id=?', [id], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
+          if(len > 0){
+            for(i = 0;i < len; i++) {
+              
+              if(results.rows.item(i).status == "NULL") {
+                
+                db.transaction(function(tx){
+                  tx.executeSql('UPDATE weekly_list SET status = ? WHERE id = ?', ["checked", id]);
+                });
+      
+              function querySuccess(tx, results){
+                var len = results.rows.length;
+                if(len > 0){
+                    }
+                else {
+                 }
+              }
+    
+              function errorCB(err){
+                alert("Error" + err.code);  }
+              }
+
+              else if (results.rows.item(i).status == "checked") {
+
+                db.transaction(function(tx){
+                  tx.executeSql('UPDATE weekly_list SET status = ? WHERE id = ?', ["NULL", id]);
+                });
+      
+              function querySuccess(tx, results){
+                var len = results.rows.length;
+                if(len > 0){
+                    }
+                else {
+                 }
+              }
+    
+              function errorCB(err){
+                alert("Error" + err.code);  }
+              }
+
+              }
+            }
+      
+
+          else {
+
+          }
+  }
+      
+  function errorCB(err){
+      alert("Error" + err.code);  }
+
+  
+};
+
 
 //edit user profile
 
@@ -469,7 +531,7 @@ var displayToDo = function(x) {
             $("#todolist").empty();
 
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='checkbox"+results.rows.item(i).id+"' class='checkbox__input' name='c'> <div class='checkbox__checkmark'></div> </label></div> <label for='checkbox"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
+              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
           }
 
@@ -552,14 +614,18 @@ var displayBabyDetails = function(){
   });
 
   function querySuccess(tx, results){
+    document.getElementById("appointbtn").setAttribute('checked','');
+    document.getElementById("bbybtn").setAttribute('checked','checked');
+    $("#appointlist").empty();
+    $("#profilelist").empty();
       var len = results.rows.length;  
           if(len > 0){
             for(i = 0; i < len; i++){
             if (currentweek > 22 ) {
-                        document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ";
+                        $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ");
           }
             else {
-                        document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ";
+                        $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ");
 
             }
           }
@@ -574,6 +640,126 @@ var displayBabyDetails = function(){
    function errorCB(err){
       alert("Error" + err.code);  }
 
+
+};
+
+var displayHospDetails = function(){
+
+  var username = localStorage.getItem('username');
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM user_hospital WHERE username = ?', [username], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      $("#appointlist").empty();
+      var len = results.rows.length;  
+          if(len > 0){
+            for(i = 0; i < len; i++){
+              document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Hospital Name: </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).hosp_name +" </p> </span> </ons-list-item> <ons-list-item> <p> Doctor's Name: </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).doctor_name +"</p> </span> </ons-list-item> </ons-list> ";
+            }
+          }
+  
+
+          else {
+            document.getElementById("profilelist").innerHTML = " <div align='center'> &nbsp; &nbsp; <ons-button style='margin: 50px;' onclick='showEditHosp()'> EDIT HOSPITAL DETAILS </ons-button> </div>";
+
+          }
+  }
+
+   function errorCB(err){
+      alert("Error" + err.code);  }
+
+
+};
+
+var displayAppointment = function() {
+
+  //$("#appointbtn").attr("checked","checked");
+
+  var username = localStorage.getItem('username');
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM user_appointment WHERE username = ?', [username], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      document.getElementById("appointbtn").setAttribute('checked','checked');
+
+      $("#profilelist").empty();
+      $("#appointlist").empty();
+
+      document.getElementById("profilelist").innerHTML = "<ons-fab position='bottom right' ripple> <ons-icon icon='md-plus' onclick='showAppoint()'></ons-icon></ons-fab>";
+      
+      var len = results.rows.length;
+
+      $("#ptitle").attr("value","Appointment "+(len+1)+" ")
+          
+          if(len > 0){
+            for(i = len-1; i >= 0; i--){
+
+              $("#appointlist").append("<ons-list> <ons-list-item> <div class='list__item__title'>"+ results.rows.item(i).appoint_title +" </div> <div class='list__item__subtitle'> Date : "+ results.rows.item(i).date +" &nbsp; Time: "+ results.rows.item(i).time +" </div> <span class='right'> <ons-icon icon='ion-close' size='24px, material:20px'></ons-icon> </span></ons-list-item> </ons-list> ");
+            }
+          }
+  
+
+          else {
+            document.getElementById("appointlist").innerHTML = "<p align='center'> No appointment added yet. </p> ";
+
+          }
+
+  }
+
+   function errorCB(err){
+      alert("Error" + err.code);  }
+};
+
+var addappoint = function(){
+
+  var date = $("#pdate").val();
+  var time = $("#ptime").val();
+  var title = $("#ptitle").val();
+  var username = localStorage.getItem("username");
+
+  function populateDB(tx){
+    tx.executeSql('INSERT INTO user_appointment (username, date, time, appoint_title) VALUES(?,?,?,?)', [ username, date, time, title]);
+    hideDialog('appointform');
+    profileloader();
+    displayAppointment();
+  }
+          
+  function errorCB(err){
+    alert("error");
+  }
+    
+  function successCB(){
+  }    
+  
+  db.transaction(populateDB,errorCB,successCB);
+}
+
+var showEditHosp = function() {
+  showDialog('edithospital_form');
+};
+
+var showAppoint = function() {
+  showDialog('appointform');
+};
+
+//edit user hospital details
+
+var edithosp = function() {
+
+  var username = localStorage.getItem('username');
+  var hosp_name = $("#hosp_name").val();
+  var doc_name = $("#doc_name").val();
+        
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO user_hospital (username, hosp_name, doctor_name) VALUES(?,?,?)', [ username, hosp_name, doc_name]);
+    });
+
+
+  profileloader();
 
 };
 

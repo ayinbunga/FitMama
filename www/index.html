@@ -197,31 +197,102 @@
         <!--ons-input type="text" modifier="underbar" class="input" id="username"></ons-input>
         <ons-input type="text" modifier="underbar" class="input" id="duedate"></ons-input-->
         <div align="right">
-        <ons-button class="button button--material--flat" onclick="editprofile()"> OK </ons-button> 
+        <ons-button class="button button--material--flat" onclick="editprofile()"> UPDATE </ons-button> 
         <ons-button class="button button--material--flat" onclick="hideDialog('editprofile_form')"> CANCEL </ons-button>
         </div>
       </div>
+    </ons-dialog>
+
+    <ons-dialog id="edithospital_form">
+      <div style="padding: 10px;" align="center">
+        <br>
+        <ons-input type="text" modifier="underbar" class="input" id="hosp_name" placeholder="Hospital name"></ons-input>
+        <ons-input type="text" modifier="underbar" class="input" id="doc_name" placeholder="Doctor name"></ons-input>
+        <div align="right">
+        <ons-button class="button button--material--flat" onclick="edithosp()"> UPDATE </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('edithospital_form')"> CANCEL </ons-button>
+        </div>
+      </div>
+    </ons-dialog>
+
+
+
+    <ons-dialog id="appointform">
+    <p class="largefont2" align="center"> Add New Appointment </p>
+
+      <ul class="list">
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+            <ons-input class="input2" type="text" modifier="underbar" id="ptitle"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Title
+          </div>
+      
+        </div>
+      </li>
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+            <ons-input class="input2" type="date" modifier="underbar" id="pdate"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Date
+          </div>
+      
+        </div>
+      
+
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+            <ons-input class="input2" type="time" modifier="underbar" id="ptime"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Time
+          </div>
+      
+        </div>
+      </li>
+      
+      <li>
+      <div align="right">
+        <ons-button class="button button--material--flat" onclick="addappoint()"> ADD </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('appointform')"> CANCEL </ons-button>
+      </div>
+      </li>
+
+      </ul>
+        
     </ons-dialog>
 
     <p id="demo" hidden="hidden"></p>
 
     <div class="tab-bar tab-bar--top tab-bar--top-border">
       <label class="tab-bar__item tab-bar--top-border__item">
-        <input type="radio" name="top-tab-bar-b" checked="checked" onclick="displayBabyDetails()">
+        <input type="radio" name="top-tab-bar-b" onclick="displayBabyDetails()" id="bbybtn">
         <button class="tab-bar__button tab-bar--top-border__button"">
           Your Baby 
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
-        <input type="radio" name="top-tab-bar-b">
+        <input type="radio" name="top-tab-bar-b" onclick="displayHospDetails()">
         <button class="tab-bar__button tab-bar--top-border__button">
           Hospital
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
-        <input type="radio" name="top-tab-bar-b">
+        <input type="radio" name="top-tab-bar-b" onclick="displayAppointment()" id="appointbtn">
         <button class="tab-bar__button tab-bar--top-border__button">
           Appointment
         </button>
@@ -230,6 +301,8 @@
     </div>
 
     <div id="profilelist"></div>
+
+    <ons-list id="appointlist"></ons-list>
       
   </ons-page>
 </ons-template>

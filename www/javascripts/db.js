@@ -7,12 +7,14 @@
 		//tx.executeSql('DROP TABLE IF EXISTS user');
 		//tx.executeSql('DROP TABLE IF EXISTS user_profile');
 		//tx.executeSql('DROP TABLE IF EXISTS user_activity');
-		//tx.executeSql('DROP TABLE IF EXISTS weekly_info');
+		//tx.executeSql('DROP TABLE IF EXISTS weekly_list');
+		//tx.executeSql('DROP TABLE IF EXISTS user_appointment');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, password)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, firstname, lastname, iconimg, lmp_date, duedate)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_hospital(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, hosp_name, doctor_name)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS user_appointment(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, date, time, appoint_title)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_info(id INTEGER NOT NULL PRIMARY KEY, info, baby_weight, baby_length)');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, week INTEGER, activity)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, week INTEGER, activity, status)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_activity (username, week INTEGER, activity)');
 	});
 
@@ -73,28 +75,39 @@ $('document').ready(function(){
 
 $('document').ready(function(){
 
-  function populateDB(tx){
-    tx.executeSql('DROP TABLE IF EXISTS weekly_list');  
-    tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, week INTEGER, activity)');
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM weekly_list', [], querySuccess, errorCB);
+  });
 
-    for(i=0; i<42; i++) {
-      for( x=0; x < weeklisthead[i].length; x++) {
-      		tx.executeSql('INSERT INTO weekly_list(week, activity) VALUES(?,?)', [i+1, weeklisthead[i][x] ]);
-    	}
-    
-    }
-  }
-          
-  function errorCB(err){
-    
-    alert("error");
-  }
-    
-  function successCB(){
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
+        if(len == 0){
             
-  }   
+            function populateDB(tx){
+            	for(i=0; i<42; i++) {
+            		for( x=0; x < weeklisthead[i].length; x++) {
+            			tx.executeSql('INSERT INTO weekly_list(week, activity, status) VALUES(?,?,?)', [i+1, weeklisthead[i][x], "NULL" ]);
+    				}
+    
+    			}
+  			}
+          
+  			function errorCB(err){
+  				alert("error");
+  			}
+    
+  			function successCB(){
+            }   
 
-  db.transaction(populateDB,errorCB,successCB);
+  			db.transaction(populateDB,errorCB,successCB);
+        }
+
+        else {
+          }
+  }
+      
+  function errorCB(err){
+      alert("Error" + err.code);  }
 
 });
 
