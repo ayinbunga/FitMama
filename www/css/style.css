@@ -123,9 +123,11 @@ video {
     font-size: 20px;
 }
 
-ul li.checked {
-    text-decoration: line-through;
+.crossthrough {
+	-webkit-tap-text-decoration: line-through;
+	
 }
+
 
 .right{
     float:right;

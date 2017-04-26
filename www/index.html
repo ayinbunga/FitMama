@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  <!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script-->
+  <script src="jquery-mobile/jquery-1.11.1.min.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="theme/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
-
-  <script src="jquery-mobile/jquery-1.11.1.min.js"></script>
+  
   <!-- script src="jquery-mobile/jquery.mobile-1.4.5.min.js"></script -->
 
 </head>
@@ -163,7 +164,7 @@
       <tr>
       <td>
       <label for="changephoto">
-      <input id="changephoto" type="file" style="display: none;" onchange="previewFile()">
+      <input id="changephoto" type="file" style="display: none;" onchange="loadpic()">
       <img src="#" id="profilepic" height="100px" width="100px" class="img-circle">
       </label>
       </td>
@@ -204,7 +205,7 @@
         <div class="list__item__center">
     
           <div class="list__item__subtitle" align="center">
-            <ons-input class="input2" type="text" modifier="underbar" id="pro_username"></ons-input>
+            <ons-input class="input2" type="text" modifier="underbar" id="pro_username" disabled></ons-input>
           </div>
         
           <div class="list__item__title">
@@ -218,7 +219,21 @@
         <div class="list__item__center">
     
           <div class="list__item__subtitle" align="center">
-        <ons-input type="text" modifier="underbar" class="input2" id="firstname" placeholder="Enter your first name"></ons-input>
+        <ons-input type="date" modifier="underbar" class="input2" id="newduedate"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Due Date
+          </div>
+      
+        </div>
+      </li>
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+        <ons-input type="text" modifier="underbar" class="input2" id="firstname"></ons-input>
           </div>
         
           <div class="list__item__title">
@@ -232,7 +247,7 @@
         <div class="list__item__center">
     
           <div class="list__item__subtitle" align="center">
-        <ons-input type="text" modifier="underbar" class="input2" id="lastname" placeholder="Enter your last name"></ons-input>
+        <ons-input type="text" modifier="underbar" class="input2" id="lastname"></ons-input>
           </div>
         
           <div class="list__item__title">
@@ -555,24 +570,7 @@
 
 <script>
   
-/*  function previewFile(){
-       var preview = document.querySelector('img'); //selects the query named img
-       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-       var reader  = new FileReader();
 
-       reader.onloadend = function () {
-           preview.src = reader.result;
-       }
-
-       if (file) {
-           reader.readAsDataURL(file); //reads the data as a URL
-       } else {
-           preview.src = "";
-       }
-  }
-
-  previewFile();  //calls the function named previewFile()
-*/
 
 </script>
 

@@ -466,6 +466,7 @@ var editprofile = function() {
   var username = localStorage.getItem('username');
   var firstname = $("#firstname").val();
   var lastname = $("#lastname").val();
+  var newdate = $("#newduedate").val();
   
   ons.notification.confirm(
     {
@@ -490,7 +491,7 @@ var editprofile = function() {
 
               //if(pwd == password){
                 db.transaction(function (tx) {
-                  tx.executeSql('UPDATE user_profile SET firstname=?, lastname=? WHERE username = ?', [firstname, lastname, username]);
+                  tx.executeSql('UPDATE user_profile SET firstname=?, lastname=?, duedate=? WHERE username = ?', [firstname, lastname, newdate, username]);
                 });
               
                 profileloader();
@@ -508,9 +509,51 @@ var editprofile = function() {
   });
 };
 
+var loadpic = function(){
+
+  var username = localStorage.getItem('username');
+
+  function previewFile(){
+       var preview = document.querySelector('img'); //selects the query named img
+       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var reader  = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+
+           //console.log(reader.result);
+           
+       }
+
+       reader.onload = function (e) {
+            $('#profilepic').attr('src', e.target.result);
+
+            var newurl = $("#profilepic").attr('src');
+
+            db.transaction(function (tx) {
+              tx.executeSql('UPDATE user_profile SET iconimg=? WHERE username = ?', [newurl, username]);
+          });
+
+            
+            
+        }
+
+       if (file) {
+           reader.readAsDataURL(file); //reads the data as a URL           
+       } else {
+           preview.src = "";
+       }
+  }
+
+  previewFile();  //calls the function named previewFile()
+
+  
+};
+
 var editprofileview = function() {
 
   var username = localStorage.getItem('username');
+  var duedate = localStorage.getItem('duedate');
 
   db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
@@ -524,10 +567,8 @@ var editprofileview = function() {
       var firstname = results.rows.item(i).firstname;
       var lastname = results.rows.item(i).lastname;
 
-      console.log(results.rows.item(i).firstname);
-      console.log(username);
-
       document.getElementById("pro_username").setAttribute('value', username);
+      document.getElementById("newduedate").setAttribute('value', duedate);
 
       if(firstname != ""){
           $("#firstname").attr("value", results.rows.item(i).firstname);
@@ -708,7 +749,7 @@ var displayBabyDetails = function(currentweek){
 
   var getMonthName = function(date) { var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec" ]; return monthNames[date.getMonth()]; };
 
-  var birthdate = date.getMonth() + " " + getMonthName(date) + ", " + date.getFullYear();
+  var birthdate = date.getDate() + " " + getMonthName(date) + ", " + date.getFullYear();
         
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_info WHERE id = ?', [currentweek], querySuccess, errorCB);
@@ -716,8 +757,8 @@ var displayBabyDetails = function(currentweek){
 
   function querySuccess(tx, results){
     
-    document.getElementById("appointbtn").setAttribute('checked','');
-    document.getElementById("bbybtn").setAttribute('checked','checked');
+    $("#bbybtn").attr("checked","checked");
+
     $("#appointlist").empty();
     $("#profilelist").empty();
     
@@ -727,7 +768,6 @@ var displayBabyDetails = function(currentweek){
             for(i = 0; i < len; i++){
             if (currentweek > 22 ) {
                         $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ");
-                        console.log("entered this part");
           }
             else {
                         $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ");
@@ -769,7 +809,7 @@ var displayHospDetails = function(){
               $("#doc_name").attr("value", results.rows.item(i).doctor_name);
               $("#doc_name").attr("placeholder", "");
               document.getElementById("profilelist").innerHTML = "<ons-list> <ons-list-item> <p> Hospital Name: </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).hosp_name +" </p> </span> </ons-list-item> <ons-list-item> <p> Doctor's Name: </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).doctor_name +"</p> </span> </ons-list-item> </ons-list> ";
-              $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-plus' onclick='showEditHosp()'></ons-icon></ons-fab>");
+              $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditHosp()'></ons-icon></ons-fab>");
 
             }
           }
@@ -876,6 +916,7 @@ var edithosp = function() {
   profileloader();
 
 };
+
 
 
 
