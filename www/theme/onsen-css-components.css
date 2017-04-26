@@ -2820,6 +2820,7 @@ ons-range[disabled] .range {
 .checkbox__input:checked {
   background: #e61243;
 }
+
 .checkbox__input:checked + .checkbox__checkmark:before {
   background: #e61243;
   border: 1px solid #e61243;

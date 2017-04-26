@@ -1,12 +1,12 @@
 
-//side menu controller
+//loader page animation
 
-//paste this code under the head tag or in a separate js file.
-  // Wait for window load
-  $(window).load(function() {
+$(window).load(function() {
     // Animate loader off screen
     $(".se-pre-con").fadeOut("slow");;
-  });
+});
+
+//side menu controller
 
 window.fn = {};
 
@@ -89,7 +89,6 @@ $('document').ready(function(){
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     fn.load('login.html');
   }
-
 });
 
 
@@ -227,8 +226,6 @@ var checkCurrentWeek = function () {
 
   var username = localStorage.getItem('username');
 
-  //var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
-        
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
       });
@@ -245,8 +242,6 @@ var checkCurrentWeek = function () {
               var duedate = results.rows.item(i).duedate;
               var url = results.rows.item(i).iconimg;
               var NULL = "";
-
-              //console.log(url);
 
               localStorage.setItem("lmp_date", lmp_date);
               localStorage.setItem("duedate", duedate);
@@ -278,7 +273,6 @@ var checkCurrentWeek = function () {
                 document.getElementById("current_user").innerHTML = firstname + " " + lastname;
               } else {
                 document.getElementById("current_user").innerHTML = username;
-                //$('#firstname').append(firstname);
               }
               
              
@@ -295,9 +289,6 @@ var checkCurrentWeek = function () {
       function errorCB(err){
         alert("Error" + err.code);  }
 
-/*
-*/
-
 };
 
 
@@ -310,7 +301,6 @@ var addactivity = function () {
   var new_activity = $("#new_activity").val();
 
   function populateDB(tx){
-    //tx.executeSql('CREATE TABLE IF NOT EXISTS user_activity (username, week INTEGER, activity)');
     tx.executeSql('INSERT INTO user_activity (username, week, activity) VALUES(?,?,?)', [ username, currentweek, new_activity]);
     hideDialog('addform');
     planloader();
@@ -372,7 +362,7 @@ var displaylist = function() {
           if(len > 0){
             document.getElementById("tdweeks").innerHTML = currentweek;
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
+              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id, itemfor"+ results.rows.item(i).id +".id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' id='itemfor"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
 
             for(x = 1; x < 43; x++) {
@@ -382,6 +372,7 @@ var displaylist = function() {
               else {
                 $("#weekly-todo-btn").append("<text class='circletext' id='tdweek"+x+"' onclick='displayToDo("+x+")'>"+ x + "</text>");
               }
+
             }
           }
 
@@ -396,7 +387,12 @@ var displaylist = function() {
 
 };
 
-var check = function(id) {
+var crossofflist = function(id){
+
+  
+};
+
+var check = function(id, item_id) {
 
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_list WHERE id=?', [id], querySuccess, errorCB);
@@ -412,6 +408,8 @@ var check = function(id) {
                 db.transaction(function(tx){
                   tx.executeSql('UPDATE weekly_list SET status = ? WHERE id = ?', ["checked", id]);
                 });
+
+                //$("#"+item_id+"").css({'text-decoration': 'line-through'});
       
               function querySuccess(tx, results){
                 var len = results.rows.length;
@@ -430,6 +428,8 @@ var check = function(id) {
                 db.transaction(function(tx){
                   tx.executeSql('UPDATE weekly_list SET status = ? WHERE id = ?', ["NULL", id]);
                 });
+
+                //$("#"+item_id+"").css({'text-decoration': ''});
       
               function querySuccess(tx, results){
                 var len = results.rows.length;
@@ -454,8 +454,17 @@ var check = function(id) {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-
-  
+      
+  /*if($("#"+id+"").is(':checked')){
+  $("#"+item_id+"").css({
+        'text-decoration': 'line-through'
+  });
+  }  
+   else{
+     $("#"+item_id+"").css({
+        'text-decoration': ''
+  });
+   }*/
 };
 
 
@@ -667,7 +676,7 @@ var displayToDo = function(x) {
             $("#todolist").empty();
 
             for(i = 0;i < len; i++) {
-              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
+              $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id, itemfor"+ results.rows.item(i).id +".id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' id='itemfor"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
           }
 
@@ -678,9 +687,9 @@ var displayToDo = function(x) {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-
-
 };
+
+//play video playlists
 
 var playVideo = function() {
 
@@ -728,11 +737,14 @@ var playVideo = function() {
   
 };
 
+//load basic exercise page
 
 var basicloader = function(){
   fn.load('basic_exercise.html');
   playVideo();
 };
+
+// display baby details on user profile
 
 var babyDetailscaller = function(){
   var currentweek = localStorage.getItem('currentweek');
@@ -784,9 +796,9 @@ var displayBabyDetails = function(currentweek){
 
    function errorCB(err){
       alert("Error" + err.code);  }
-
-
 };
+
+//display hospital details on user profile 
 
 var displayHospDetails = function(){
 
@@ -823,9 +835,9 @@ var displayHospDetails = function(){
 
    function errorCB(err){
       alert("Error" + err.code);  }
-
-
 };
+
+//display appoinment details on user profile
 
 var displayAppointment = function() {
 
@@ -868,6 +880,8 @@ var displayAppointment = function() {
       alert("Error" + err.code);  }
 };
 
+//add new appointment
+
 var addappoint = function(){
 
   var date = $("#pdate").val();
@@ -890,11 +904,15 @@ var addappoint = function(){
   }    
   
   db.transaction(populateDB,errorCB,successCB);
-}
+};
+
+//load edit hospital form
 
 var showEditHosp = function() {
   showDialog('edithospital_form');
 };
+
+//load add new appointment form
 
 var showAppoint = function() {
   showDialog('appointform');
