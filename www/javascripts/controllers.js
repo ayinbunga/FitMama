@@ -135,21 +135,23 @@ var login = function(){
   var NULL = "";
 
 
-  
-  localStorage.setItem("username", username);
-
   if ((username != NULL) && (password != NULL)) {
+
+    localStorage.setItem("username", username);
         
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user WHERE username=? and password=?', [username,password], querySuccess, errorCB);
       });
       
       function querySuccess(tx, results){
+
+      
   
         var len = results.rows.length;
           if(len > 0){
             checkCurrentWeek();
             profileloader();
+            location.reload();
 
               }
         else {
@@ -161,7 +163,7 @@ var login = function(){
   }
   else { ons.notification.alert("Invalid input!") }
 
-    location.reload();
+    //location.reload();
 
   
 };
@@ -454,7 +456,7 @@ var check = function(id, item_id) {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-      
+
   /*if($("#"+id+"").is(':checked')){
   $("#"+item_id+"").css({
         'text-decoration': 'line-through'
