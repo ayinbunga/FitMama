@@ -201,12 +201,14 @@ var calcCurrentWeek = function() {
       db.transaction(function(tx){
         tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate) VALUES(?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate]);
       });
+
+      
+      
       
       function querySuccess(tx, results){
         var len = results.rows.length;
           if(len > 0){
-              profileloader();
-              location.reload();
+              
               }
         else {
           ons.notification.alert("Invalid input!") }
@@ -216,6 +218,7 @@ var calcCurrentWeek = function() {
         alert("Error" + err.code);  }
 
     localStorage.setItem("username", username);
+    location.reload();
     
 
   }
