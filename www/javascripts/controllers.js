@@ -123,8 +123,6 @@ var signup = function() {
 
     alert("Invalid input!");
     }
-    
-    
 };
 
 //login function
@@ -164,8 +162,6 @@ var login = function(){
   else { ons.notification.alert("Invalid input!") }
 
     //location.reload();
-
-  
 };
 
 
@@ -222,7 +218,6 @@ var calcCurrentWeek = function() {
     
 
   }
-
 };
 
 //check current week for current user and display user info
@@ -293,7 +288,6 @@ var checkCurrentWeek = function () {
       
       function errorCB(err){
         alert("Error" + err.code);  }
-
 };
 
 
@@ -319,8 +313,7 @@ var addactivity = function () {
   }    
   
   db.transaction(populateDB,errorCB,successCB);
-
-}
+};
 
 
 //display baby info
@@ -348,7 +341,6 @@ var displayinfo = function() {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-
 };
 
 //display to do lists
@@ -388,13 +380,9 @@ var displaylist = function() {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-
-
 };
 
 var crossofflist = function(id){
-
-  
 };
 
 var check = function(id, item_id) {
@@ -559,9 +547,7 @@ var loadpic = function(){
        }
   }
 
-  previewFile();  //calls the function named previewFile()
-
-  
+  previewFile();  //calls the function named previewFile()  
 };
 
 var editprofileview = function() {
@@ -602,8 +588,7 @@ var editprofileview = function() {
   }
 
   function errorCB(err){
-    alert("Error" + err.code);  }
-   
+    alert("Error" + err.code);  } 
 };
 
 //baby due date countdown
@@ -644,11 +629,11 @@ var countdownActivate = function() {
       }
 
       }, 1000);
-}
+};
 
 //edit profile img
 
-var editimg = function() {
+/*var editimg = function() {
 
   var username = localStorage.getItem('username');
   var url =  $('#profilepic').attr('src');
@@ -660,8 +645,7 @@ var editimg = function() {
 
   hideDialog('editprofile_form');
   profileloader();
-
-};
+};*/
 
 //display to-do-lists
 
@@ -696,7 +680,7 @@ var displayToDo = function(x) {
 
 //play video playlists
 
-var playVideo = function() {
+var playVideo = function(type) {
 
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_list', [], querySuccess, errorCB);
@@ -706,27 +690,140 @@ var playVideo = function() {
       var len = results.rows.length;  
           if(len > 0){
 
-            var x=2;
-
-            $("#myVideo").bind("ended",function(){
+              var basic = ["Marching","Plie","Inner-Outer Thigh","Plank"];
+              var stretching = ["Shoulder Cirles","Trunk Twist", "Roll Down", "Lunges"];
+              var yoga = ["Cobbler's Pose","Pelvic Tilt","Squat", "Side Lying"];
+              var pilates = ["Spinal Twist", "Side Tap", "Cat Stretch", "Deep Breathing"];
               
 
+            /*document.getElementById('timer').innerHTML =
+                      02 + ":" + 30;
+                      startTimer();
+
+            function startTimer() {
+                      var presentTime = document.getElementById('timer').innerHTML;
+                      var timeArray = presentTime.split(/[:]+/);
+                      var m = timeArray[0];
+                      var s = checkSecond((timeArray[1] - 1));
+                      if(s==59){m=m-1}
+                      
+                      if(m<0){
+                        //alert('timer completed');
+                      }
+                      else {
+                      
+                      document.getElementById('timer').innerHTML = m + ":" + s;
+                      }
+                      setTimeout(startTimer, 1000);
+            }
+
+            function checkSecond(sec) {
+                      if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+                      if (sec < 0) {sec = "59"};
+                      return sec;
+            }*/
+
+
+            /*var counter = function(x){
+                  var timeleft = x;
+                  var downloadTimer = setInterval(function(){
+                  
+                  document.getElementById("progressBar").value = x - --timeleft;
+                            if(timeleft <= 0)
+                              clearInterval(downloadTimer);
+                            
+                  },1000);
+            }*/
+
+            //counter(21);
+
+            //var a=1;
+            //document.getElementById('video_no_id').setAttribute('value',a);
+
+            $("#myVideo").bind("ended",function(){
+
+              document.getElementById('video_type').setAttribute('value',type);
+
+              
+              var x = $("#video_no_id").val();
+
+              console.log(x);
+
+
               function run() {
-                  $("#myVideo source").attr("src","videos/video"+x+".mp4");
+
+                //counter(21);
+
+                  $("#myVideo source").attr("src","videos/"+type+"/video"+x+".mp4");
                   $("#myVideo")[0].load();
                   $("#myVideo")[0].play();
-                  x++;
+
+                  if(x!=4) {
+
+                  if (type == "basic") {
+                   document.getElementById('exer_name').innerHTML = basic[x];
+                   document.getElementById('exer_name2').innerHTML = basic[x-1];
+                  }
+
+                 if (type == "stretching") {
+                   document.getElementById('exer_name').innerHTML = stretching[x];
+                   document.getElementById('exer_name2').innerHTML = stretching[x-1];
+                 }
+
+                 if (type == "yoga") {
+                   document.getElementById('exer_name').innerHTML = yoga[x];
+                   document.getElementById('exer_name2').innerHTML = yoga[x-1];
+
+                 }
+
+                 if (type == "pilates") {
+                   document.getElementById('exer_name').innerHTML = pilates[x];
+                   document.getElementById('exer_name2').innerHTML = pilates[x-1];
+                 }
+
+                 }
+                 else {
+
+                  if (type == "basic") {
+                   document.getElementById('exer_name').innerHTML = "";
+                  document.getElementById('exer_name2').innerHTML = basic[x-1];
+                  }
+
+                 if (type == "stretching") {
+                   document.getElementById('exer_name').innerHTML = "";
+                  document.getElementById('exer_name2').innerHTML = stretching[x-1];
+                 }
+
+                 if (type == "yoga") {
+                   document.getElementById('exer_name').innerHTML = "";
+                  document.getElementById('exer_name2').innerHTML = yoga[x-1];
+                 }
+
+                 if (type == "pilates") {
+                   document.getElementById('exer_name').innerHTML = "";
+                   document.getElementById('exer_name2').innerHTML = pilates[x-1];
+                 }
+                  
+                 }
+                
+                x++;
+                document.getElementById('video_no_id').setAttribute('value', x);
+                
+
+                  //var i = document.getElementById("myVideo").duration;
+                  //console.log(i);
+
               }
 
               if(x!=5) {
                 run();
               }
               else {
-                document.getElementById("videoPlayer").innerHTML = ("<p> Exercise session completed </p>");
-
+                document.getElementById("videoPlayer").innerHTML = ("<h3 style='margin-top: 200px;'> EXERCISE COMPLETED </h3>");
+                document.getElementById('current-next').setAttribute('hidden','true');
+                var music = document.getElementById("music");
+                music.pause();
               }
-
-
 
           });
             
@@ -739,14 +836,132 @@ var playVideo = function() {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-  
 };
+
+
+var stopcounter = function(x){
+  var timeleft = x;
+  var downloadTimer = setInterval(function(){
+  
+  document.getElementById("progressBar").value = x;
+            if(timeleft <= 0)
+              clearInterval(downloadTimer);
+            
+  }, 0);
+}
+
+var pause = function(){
+  var video = document.getElementById("myVideo");
+  var music = document.getElementById("music");
+  //var value = $("#progressBar").val();
+        
+                if (video.paused == true) {
+                // Play the video
+                //counter(11-value);
+                //console.log(value);
+                video.play();
+
+                if ($("#stopmusicicon").attr('icon') == "volume-up"){
+                  music.play();
+                }
+                $("#play-pause").attr('icon','pause-circle-o');
+                
+                }
+                else
+                {
+                  video.pause();
+                  music.pause();
+                  $("#play-pause").attr('icon','fa-play');
+                  //stopcounter(value);
+                }
+}
+
+var mute = function(){
+  var video = document.getElementById("myVideo");
+  
+        
+                if (video.muted == true) {
+                
+                video.muted = false;
+
+                $("#narration").attr('icon','microphone');
+                
+                }
+                else
+                {
+                  video.muted = true;
+                  $("#narration").attr('icon','microphone-slash');
+                }
+}
+
+var stopvid = function(value){
+  var video = document.getElementById("myVideo");
+        
+   video.currentTime += value;
+   
+   $("#play-pause").attr('icon','pause-circle-o');
+};
+
+var revid = function(value){
+  var video = document.getElementById("myVideo");
+  video.currentTime += value;
+  var x = $("#video_no_id").val();
+
+  if (x != 2) {
+  $("#video_no_id").attr('value',(x-2));  
+  }
+  else if ( x == 2 ) {
+    $("#video_no_id").attr('value', (x-1));
+  }
+
+};
+
+
+
+var stopmusic = function(){
+  var music = document.getElementById("music");
+  //var value = $("#progressBar").val();
+        
+                if (music.paused == true) {
+                // Play the video
+                //counter(11-value);
+                //console.log(value);
+                music.play();
+                $("#stopmusicicon").attr('icon','volume-up');
+                
+                }
+                else
+                {
+                  music.pause();
+                  $("#stopmusicicon").attr('icon','volume-off');
+                  //stopcounter(value);
+                }
+}
 
 //load basic exercise page
 
 var basicloader = function(){
-  fn.load('basic_exercise.html');
-  playVideo();
+  var type = "basic";
+  fn.load('exercise.html');
+  playVideo(type);
+};
+
+var stretchingloader = function(){
+  var type = "stretching";
+  fn.load('exercise.html');
+  playVideo(type);
+};
+
+var pilatesloader = function(){
+  var type = "pilates";
+  fn.load('exercise.html');
+  playVideo(type);
+};
+
+var yogaloader = function(){
+  var type = "yoga";
+  fn.load('exercise.html');
+  playVideo(type);
 };
 
 // display baby details on user profile
@@ -754,7 +969,7 @@ var basicloader = function(){
 var babyDetailscaller = function(){
   var currentweek = localStorage.getItem('currentweek');
   displayBabyDetails(currentweek);
-}
+};
 
 var displayBabyDetails = function(currentweek){
 
@@ -937,15 +1152,5 @@ var edithosp = function() {
 
 
   profileloader();
-
 };
-
-
-
-
-
-
-
-
-
 

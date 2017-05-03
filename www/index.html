@@ -51,7 +51,7 @@
         <ons-list-item onclick="timelineloader()" tappable>
           Timeline
         </ons-list-item>
-        <ons-list-item onclick="fn.load('exercise.html')" tappable>
+        <ons-list-item onclick="fn.load('exercisemenu.html')" tappable>
           Exercise
         </ons-list-item>
         <ons-list-item onclick="logout()" tappable>
@@ -503,8 +503,8 @@
 
 <!-- exercise page -->
 
-<ons-template id="exercise.html">
-  <ons-page id="exercise">
+<ons-template id="exercisemenu.html">
+  <ons-page id="exercisemenu">
     <ons-toolbar>
       <div class="right">
         <ons-toolbar-button onclick="fn.open()">
@@ -523,9 +523,9 @@
     <p> Choose the exercise type </p>
     &nbsp;
     <p> <ons-button class="ctmbtn" style="background-color: #FAC090;" onclick="basicloader()"> BASIC </ons-button> </p>
-    <p> <ons-button class="ctmbtn" style="background-color: #C0504D;"> STRETCHING </ons-button> </p>
-    <p> <ons-button class="ctmbtn" style="background-color: #E59FC2;"> YOGA </ons-button> </p>
-    <p> <ons-button class="ctmbtn" style="background-color: #FD5341;"> PILATES </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #C0504D;" onclick="stretchingloader()"> STRETCHING </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #E59FC2;" onclick="yogaloader()"> YOGA </ons-button> </p>
+    <p> <ons-button class="ctmbtn" style="background-color: #FD5341;" onclick="pilatesloader()"> PILATES </ons-button> </p>
     </div>
     
 
@@ -535,8 +535,8 @@
 
 <!-- basic exercise page -->
 
-<ons-template id="basic_exercise.html">
-  <ons-page id="basic_exercise">
+<ons-template id="exercise.html">
+  <ons-page id="exercise">
     <ons-toolbar>
       <div class="right">
         <ons-toolbar-button onclick="fn.open()">
@@ -544,16 +544,103 @@
         </ons-toolbar-button>
       </div>
       <div class="center">
-        BASIC EXERCISE
+        EXERCISE
       </div>
     </ons-toolbar>
 
-    <div align="center" id="videoPlayer">
+    <!--table>
+    <tr>
+    <td align="center"-->
+
+    <div align="center" id="videoPlayer" style="width: 360px; height: 360px;">
     
     <video id="myVideo" autoplay>
-      <source src="videos/video1.mp4" type="video/mp4" id="ss">
+      <source src="videos/timer.mp4" type="video/mp4" id="ss">
         Your browser does not support the video tag.
+      <input type="text" value="1" hidden="true" id="video_no_id">
+      <input type="text" value="type" hidden="true" id="video_type">
+
     </video>
+    </div>
+    
+    <div hidden="true" id="basiclist">
+    <ons-list>
+      <ons-list-item> ITEM 1 </ons-list-item>
+      <ons-list-item> ITEM 1 </ons-list-item>
+      </ons-list>
+    </div>
+
+    <!--div align="center"> <text class="customheader" id="timer"> </text> </div-->
+
+    
+
+    <audio src="/music/good_enough.mp3" autoplay loop="true" id="music">
+      <p>If you are reading this, it is because your browser does not support the audio element.</p>
+      <embed src="/music/good_enough.mp3" width="180" height="90" hidden="true"  />
+      </audio>
+
+    <table width="100%" id="current-next" class="current-next-style" border="1">
+      <tr>
+        <td width="33%"> 
+          <text style="font-size: 20px; color: grey;"> Current </text> </div>
+        </td>
+
+        <td width="33%"> 
+          <text style="font-size: 20px; color: grey;"> Next </text> </div>
+        </td>
+
+        <td width="33%"> 
+          <text style="font-size: 20px; color: grey;"> Controllers </text> </div>
+        </td>
+
+      </tr>
+      
+      <tr>
+        <td width="33%" height="130px"> 
+          <text style="font-size: 25px; color: grey;" id="exer_name2"> </text> </div>
+        </td>
+
+        <td width="33%"> 
+          <text style="font-size: 25px; color: #E61243;" id="exer_name"> </text> </div>
+        </td>
+
+        <td width="33%"> 
+          <table width="100%">
+            <tr>
+              <td align="center" width="50%">
+                <text class="controllers2"> <ons-icon icon="volume-up" id="stopmusicicon" onclick="stopmusic()"> </ons-icon> </text> 
+              </td>
+              
+              <td align="center" width="50%">
+                <text class="controllers2"> <ons-icon icon="microphone" id="narration" onclick="mute()"> </ons-icon> </text>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+      </tr>
+    </table>
+
+    
+
+    <table width="100%" align="center" class="horiz">
+
+      <tr>
+
+        <td align="center" width="25%"> 
+          <text class="controllers"> <ons-icon icon="fa-angle-left" onclick="revid(30)"></ons-icon> </text>
+        </td>
+      
+        <td align="center" width="25%"> 
+          <text class="controllers"> <ons-icon icon="pause-circle-o" id="play-pause" onclick="pause()"></ons-icon> </text>
+        </td>
+        
+        <td align="center" width="25%"> 
+          <text class="controllers"> <ons-icon icon="fa-angle-right" onclick="stopvid(30)"></ons-icon> </text> 
+        </td>
+
+      </tr>
+    </table>
 
      <p id="demo" hidden="hidden"></p>
     </div>
@@ -564,15 +651,17 @@
 </ons-template>
 
 
+<script>
+
+
+
+</script>
+
 <script type="text/javascript" src="javascripts/controllers.js"></script>
 <script type="text/javascript" src="javascripts/db.js"></script>
 <script type="text/javascript" src="javascripts/data.js"></script>
 
-<script>
-  
 
-
-</script>
 
 </body>
 </html>

@@ -81,6 +81,38 @@ $colors: (
 }
 
 
+.horiz {
+	bottom: 0;
+	border-color: grey;
+	border-collapse: collapse;
+	text-align: center;
+	width: 100%;
+	position: fixed;
+	background-color: #FC8585;
+
+}
+
+.current-next-style {
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+	border: 5px solid #FC8585;
+}
+
+
+
+
+/*#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}*/
+
 .addform {
 	margin: 0px; 
 	box-shadow: 0 1px 4px rgba(0,0,0,0.2); 
@@ -110,7 +142,7 @@ $colors: (
 }
 
 video {
-    width: 100%;
+    width: 360px;
     height: auto;
 }
 
@@ -147,4 +179,57 @@ video {
 	height: 100%;
 	z-index: 9999;
 	background: url(newloader.gif) center no-repeat #F09093;
+}
+
+.controllers {
+	font-size: 50px;
+	text-align: center;
+}
+
+.controllers2 {
+	font-size: 35px;
+	text-align: center;
+}
+
+.extralarge {
+	font-size: 60px;
+	font-style: bold;
+	color: #E61243;
+}
+
+progress {
+  position: relative;
+  height: 4px;
+  display:inline-block;
+  width: 100%;
+  background-color: #CCC;
+  margin: 0;
+  overflow: hidden;
+}
+progress::-webkit-progress-bar {
+	height:4px;
+	margin:0 auto;
+	background-color: #CCC;
+	border-radius: 0px;
+	box-shadow:0px 0px 6px #CCC inset;
+}
+progress::-webkit-progress-value {
+	display:inline-block;
+	float:left;
+	height:4px;
+	margin:0px -10px 0 0;
+	background: #E61243;
+	border-radius: 0px;
+	box-shadow:0px 0px 6px #E61243 inset;
+	-webkit-transition: width 0.3s linear;
+  -moz-transition: width 0.3s linear;
+  -o-transition: width 0.3s linear;
+  transition: width 0.3s linear;
+  z-index: 100;
+}
+progress:after {
+	margin:-26px 0 0 -7px;
+	padding:0;
+	display:inline-block;
+	float:left;
 }
