@@ -691,7 +691,7 @@ var playVideo = function(type) {
           if(len > 0){
 
               var basic = ["Marching","Plie","Inner-Outer Thigh","Plank"];
-              var stretching = ["Shoulder Cirles","Trunk Twist", "Roll Down", "Lunges"];
+              var stretching = ["Shoulder Circles","Trunk Twist", "Roll Down", "Lunges"];
               var yoga = ["Cobbler's Pose","Pelvic Tilt","Squat", "Side Lying"];
               var pilates = ["Spinal Twist", "Side Tap", "Cat Stretch", "Deep Breathing"];
               
@@ -821,6 +821,7 @@ var playVideo = function(type) {
               else {
                 document.getElementById("videoPlayer").innerHTML = ("<h3 style='margin-top: 200px;'> EXERCISE COMPLETED </h3>");
                 document.getElementById('current-next').setAttribute('hidden','true');
+                $("#play-pause").attr('icon','fa-play');
                 var music = document.getElementById("music");
                 music.pause();
               }
