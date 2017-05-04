@@ -893,7 +893,7 @@ var mute = function(){
                   video.muted = true;
                   $("#narration").attr('icon','microphone-slash');
                 }
-}
+};
 
 var stopvid = function(value){
   var video = document.getElementById("myVideo");
@@ -937,7 +937,7 @@ var stopmusic = function(){
                   $("#stopmusicicon").attr('icon','volume-off');
                   //stopcounter(value);
                 }
-}
+};
 
 //load basic exercise page
 
