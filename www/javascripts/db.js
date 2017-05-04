@@ -8,7 +8,7 @@
 		//tx.executeSql('DROP TABLE IF EXISTS user_profile');
 		//tx.executeSql('DROP TABLE IF EXISTS user_activity');
 		//tx.executeSql('DROP TABLE IF EXISTS weekly_list');
-		//tx.executeSql('DROP TABLE IF EXISTS user_appointment');
+		//tx.executeSql('DROP TABLE IF EXISTS exercise_history');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, password)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_profile(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username, firstname, lastname, iconimg, lmp_date, duedate)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_hospital(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, created unique, username UNIQUE, hosp_name, doctor_name)');
@@ -16,6 +16,7 @@
 		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_info(id INTEGER NOT NULL PRIMARY KEY, info, baby_weight, baby_length)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS weekly_list(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, week INTEGER, activity, status, username)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS user_activity (username, week INTEGER, activity)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS exercise_history (username, date, time, type, exercise)');
 	});
 
 

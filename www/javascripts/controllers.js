@@ -631,22 +631,6 @@ var countdownActivate = function() {
       }, 1000);
 };
 
-//edit profile img
-
-/*var editimg = function() {
-
-  var username = localStorage.getItem('username');
-  var url =  $('#profilepic').attr('src');
-
-
-  db.transaction(function (tx) {
-      tx.executeSql('UPDATE user_profile SET iconimg=?, WHERE username = ?', [url, username]);
-    });
-
-  hideDialog('editprofile_form');
-  profileloader();
-};*/
-
 //display to-do-lists
 
 var displayToDo = function(x) {
@@ -689,6 +673,15 @@ var playVideo = function(type) {
   function querySuccess(tx, results){
       var len = results.rows.length;  
           if(len > 0){
+
+              localStorage.setItem('0video',-1);
+              localStorage.setItem('1video',-1);
+              localStorage.setItem('2video',-1);
+              localStorage.setItem('3video',-1);
+              localStorage.setItem('4video',-1);
+
+              var username = localStorage.getItem('username');
+
 
               var basic = ["Marching","Plie","Inner-Outer Thigh","Plank"];
               var stretching = ["Shoulder Circles","Trunk Twist", "Roll Down", "Lunges"];
@@ -744,11 +737,15 @@ var playVideo = function(type) {
 
               document.getElementById('video_type').setAttribute('value',type);
 
-              
               var x = $("#video_no_id").val();
 
-              console.log(x);
+              var check = localStorage.getItem((x-1)+'video');
 
+                  if ( check == -1 ) {
+                      localStorage.setItem((x-1)+'video',30);
+                  }
+
+              console.log(x);
 
               function run() {
 
@@ -824,6 +821,94 @@ var playVideo = function(type) {
                 $("#play-pause").attr('icon','fa-play');
                 var music = document.getElementById("music");
                 music.pause();
+
+                var date = new Date();
+
+                //var getMonthName = function(date) { var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec" ]; return monthNames[date.getMonth()]; };
+
+                var completed_date = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+
+                duration1 = localStorage.getItem('1video');
+                duration2 = localStorage.getItem('2video');
+                duration3 = localStorage.getItem('3video');
+                duration4 = localStorage.getItem('4video');
+
+                var duration = [duration1,duration2,duration3,duration4];
+
+                if (type == "basic") {
+
+                   function populateDB(tx){
+
+                          for(x=0; x<4; x++) {
+                          tx.executeSql('INSERT INTO exercise_history (username, date, time, type, exercise) VALUES(?,?,?,?,?)', [ username, completed_date, duration[x], type, basic[x]]);
+                        }
+                    }
+                          
+                    function errorCB(err){
+                      alert("error");
+                    }
+                      
+                    function successCB(){
+                    }    
+                    
+                    db.transaction(populateDB,errorCB,successCB);
+                }
+
+                 if (type == "stretching") {
+                   function populateDB(tx){
+
+                          for(x=0; x<4; x++) {
+                          tx.executeSql('INSERT INTO exercise_history (username, date, time, type, exercise) VALUES(?,?,?,?,?)', [ username, completed_date, duration[x], type, stretching[x]]);
+                        }
+                    }
+                          
+                    function errorCB(err){
+                      alert("error");
+                    }
+                      
+                    function successCB(){
+                    }    
+                    
+                    db.transaction(populateDB,errorCB,successCB);
+                 }
+
+                 if (type == "yoga") {
+                   function populateDB(tx){
+
+                          for(x=0; x<4; x++) {
+                          tx.executeSql('INSERT INTO exercise_history (username, date, time, type, exercise) VALUES(?,?,?,?,?)', [ username, completed_date, duration[x], type, yoga[x]]);
+                        }
+                    }
+                          
+                    function errorCB(err){
+                      alert("error");
+                    }
+                      
+                    function successCB(){
+                    }    
+                    
+                    db.transaction(populateDB,errorCB,successCB);
+
+                 }
+
+                 if (type == "pilates") {
+                   function populateDB(tx){
+
+                          for(x=0; x<4; x++) {
+                          tx.executeSql('INSERT INTO exercise_history (username, date, time, type, exercise) VALUES(?,?,?,?,?)', [ username, completed_date, duration[x], type, pilates[x]]);
+                        }
+                    }
+                          
+                    function errorCB(err){
+                      alert("error");
+                    }
+                      
+                    function successCB(){
+                    }    
+                    
+                    db.transaction(populateDB,errorCB,successCB);
+                 }
+
               }
 
           });
@@ -895,11 +980,24 @@ var mute = function(){
                 }
 };
 
+
+
 var stopvid = function(value){
   var video = document.getElementById("myVideo");
+  var x = $("#video_no_id").val();
+
+  var countsecond = (video.currentTime);
+  //console.log(countsecond);
+
+  var time = localStorage.getItem((x-1) +'video');
+
+  var countsecond = parseInt(countsecond) + parseInt(time) + 1;
+
+  localStorage.setItem((x-1) +'video', countsecond);
         
-   video.currentTime += value;
+  video.currentTime += value;
    
+   $("#play-pause").attr('icon','pause-circle-o');
    $("#play-pause").attr('icon','pause-circle-o');
 };
 
@@ -916,8 +1014,6 @@ var revid = function(value){
   }
 
 };
-
-
 
 var stopmusic = function(){
   var music = document.getElementById("music");
@@ -1101,6 +1197,115 @@ var displayAppointment = function() {
       alert("Error" + err.code);  }
 };
 
+//
+
+var displayHistory = function() {
+
+  //$("#appointbtn").attr("checked","checked");
+
+  var username = localStorage.getItem('username');
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM exercise_history WHERE username = ?', [username], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+      document.getElementById("historybtn").setAttribute('checked','checked');
+
+      $("#profilelist").empty();
+      $("#appointlist").empty();
+
+      var total = 0;
+      var ytotal = 0;
+      var stotal = 0;
+      var ptotal = 0;
+
+
+      //document.getElementById("profilelist").innerHTML = "<ons-fab position='bottom right' ripple> <ons-icon icon='md-plus' onclick='showAppoint()'></ons-icon></ons-fab>";
+      
+      var len = results.rows.length;
+
+      //$("#ptitle").attr("value","Appointment "+(len+1)+" ")
+          
+          if(len > 0){
+
+            var t = 0;
+            var y = 0;
+            var s = 0;
+            var p = 0;
+
+            for(i = len-1; i >= 0; i--) {
+              if(results.rows.item(i).type == "basic") {
+                var basic_duration =  parseInt(results.rows.item(i).time);
+                total = total + basic_duration;
+
+                var t = (total/60).toFixed(2);
+
+              }
+              if(results.rows.item(i).type == "yoga") {
+                var yoga_duration =  parseInt(results.rows.item(i).time);
+                ytotal = ytotal + yoga_duration;
+
+                var y = (ytotal/60).toFixed(2);
+
+              }
+              if(results.rows.item(i).type == "stretching") {
+                var stretching_duration =  parseInt(results.rows.item(i).time);
+                stotal = stotal + stretching_duration;
+
+                var s = (stotal/60).toFixed(2);
+
+              }
+              if(results.rows.item(i).type == "pilates") {
+                var pilates_duration =  parseInt(results.rows.item(i).time);
+                ptotal = ptotal + pilates_duration;
+
+                var p = (ptotal/60).toFixed(2);
+
+              }
+
+              var bigtotal = ((total+ytotal+stotal+ptotal)/60).toFixed(2);
+            //$("#appointlist").append("<ons-list> <ons-list-item> <div class='list__item__title'>"+ results.rows.item(i).type +" </div> <div class='list__item__subtitle'>"+ results.rows.item(i).exercise +" Duration : 0.0"+ results.rows.item(i).time +" min &nbsp; Date completed: "+ results.rows.item(i).date +" </div> <span class='right'> <ons-icon icon='ion-close' size='24px, material:20px'></ons-icon> </span></ons-list-item> </ons-list> ");
+            }
+            //$("#appointlist").append("<ons-list> <ons-list-item> <div class='list__item__title'> BASIC <span class='right'> Total duration : "+ total +" </span> </div> <div class='list__item__subtitle'>"+ results.rows.item(i).exercise +" Duration : 0.0"+ results.rows.item(i).time +" min &nbsp; Date completed: "+ results.rows.item(i).date +" </div> </ons-list-item> </ons-list> ");
+            //$("#appointlist").append("<ons-list> <ons-list-item> <div> BASIC <span class='right'> Total duration : "+ t +" min </span> </div> </ons-list-item> </ons-list> ");
+             $("#profilelist").append("<ons-list-item> <p> TOTAL DURATION </p> <span class='right'> <p class='largefont2'> "+ bigtotal +" min </p> </span> </ons-list-item>");
+             $("#profilelist").append("<div align='center'> <ons-icon icon='angle-double-down' style='color: #ccc;'id='d'> </ons-icon> </div>");
+
+             $("#d").click(function() {
+
+              $("#d").toggle();
+              $("#profilelist").append("<div align='center'> <ons-icon icon='angle-double-up' style='color: #ccc;'id='p' hidden='true'> </ons-icon> </div>");
+ 
+             $("#profilelist").append("<ons-list-item> <p> BASIC </p> <span class='right'> <p class='largefont2'> "+ t +" min </p> </span> </ons-list-item>  ");
+             $("#profilelist").append("<ons-list-item> <p> YOGA </p> <span class='right'> <p class='largefont2'> "+ y +" min </p> </span> </ons-list-item> ");
+             $("#profilelist").append("<ons-list-item> <p> STRETCHING </p> <span class='right'> <p class='largefont2'> "+ s +" min </p> </span> </ons-list-item> ");
+             $("#profilelist").append("<ons-list-item> <p> PILATES </p> <span class='right'> <p class='largefont2'> "+ p +" min </p> </span> </ons-list-item> ");
+            
+            $("#p").click(function() {
+
+              $("#d").toggle();
+              
+              displayHistory();
+            });
+
+            });
+
+             
+
+          }
+  
+
+          else {
+            document.getElementById("appointlist").innerHTML = "<p align='center'> Exercise history is empty. Start exercising now! </p> ";
+
+          }
+
+  }
+
+   function errorCB(err){
+      alert("Error" + err.code);  }
+};
 //add new appointment
 
 var addappoint = function(){

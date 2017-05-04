@@ -391,15 +391,54 @@
         </button>
       </label>
 
+      <label class="tab-bar__item tab-bar--top-border__item">
+        <input type="radio" name="top-tab-bar-b" onclick="displayHistory()" id="historybtn">
+        <button class="tab-bar__button tab-bar--top-border__button">
+          History
+        </button>
+      </label>
+
     </div>
 
     <div id="profilelist"></div>
 
     <ons-list id="appointlist"></ons-list>
+
+    <ons-dialog id="historylist">
+      <ons-list> 
+      <ons-list-item> 
+      <div class='list__item__title'> Total duration : </div>
+      <span class='right'> 
+      <ons-icon icon='fa-angle-right' size='24px, material:20px'></ons-icon> 
+      </span>
+      </ons-list-item>
+
+      <ons-list-item> 
+      <div class='list__item__title'> STRETCHING </div>
+      <span class='right'> 
+      <ons-icon icon='fa-angle-right' size='24px, material:20px'></ons-icon> 
+      </span>
+      </ons-list-item>
+
+      <ons-list-item> 
+      <div class='list__item__title'> YOGA </div>
+      <span class='right'> 
+      <ons-icon icon='fa-angle-right' size='24px, material:20px'></ons-icon> 
+      </span>
+      </ons-list-item>
+
+      <ons-list-item> 
+      <div class='list__item__title'> PILATES </div>
+      <span class='right'> 
+      <ons-icon icon='fa-angle-right' size='24px, material:20px'></ons-icon> 
+      </span>
+      </ons-list-item>
+      </ons-list>
+
+    </ons-dialog>
       
   </ons-page>
 </ons-template>
-
 
 <!-- plan page -->
 
