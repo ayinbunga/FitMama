@@ -1158,7 +1158,7 @@ var displayHospDetails = function(){
 
 var displayAppointment = function() {
 
-  //$("#appointbtn").attr("checked","checked");
+  $("#appointbtn").attr("checked","checked");
 
   var username = localStorage.getItem('username');
         
