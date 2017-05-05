@@ -1035,7 +1035,7 @@ var stopmusic = function(){
                 }
 };
 
-//load basic exercise page
+//load exercise page
 
 var basicloader = function(){
   var type = "basic";
