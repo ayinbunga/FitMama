@@ -47,9 +47,6 @@ h6 {
 @font-face {
         font-family: 'open sans light';
         src: url('fonts/OpenSans-Light.ttf') format('truetype');
-
-        font-family: 'open sans regular';
-        src: url('fonts/OpenSans-Regular_0.ttf') format('truetype');
 }
 
 .page {
@@ -103,11 +100,11 @@ h6 {
   padding: 8px;
 }
 .page--material {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .page--material__content {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
 }
@@ -116,7 +113,7 @@ h6 {
 .page--material__content h3,
 .page--material__content h4,
 .page--material__content h5 {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
 }
@@ -1037,7 +1034,7 @@ ons-range[disabled] .range {
 }
 .navigation-bar--material__left,
 .navigation-bar--material__right {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 20px;
   font-weight: 500;
@@ -1049,7 +1046,7 @@ ons-range[disabled] .range {
   line-height: 56px;
 }
 .navigation-bar--material__center {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 20px;
   font-weight: 500;
@@ -1716,7 +1713,7 @@ ons-range[disabled] .range {
   text-transform: uppercase;
   background-color: #e61243;
   color: #fff;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 500;
 }
@@ -1809,7 +1806,7 @@ ons-range[disabled] .range {
   text-transform: uppercase;
   background-color: #e61243;
   color: #fff;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 500;
   -webkit-box-shadow: none;
@@ -2431,7 +2428,7 @@ ons-range[disabled] .range {
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 500;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .tab-bar--material__button:after {
@@ -2522,11 +2519,11 @@ ons-range[disabled] .range {
     </div>
 */
 .tab-bar--material__label {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .tab-bar--material__label:first-child {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.015em;
   font-weight: 500;
@@ -3112,7 +3109,7 @@ ons-range[disabled] .range {
 */
 .checkbox--material {
   line-height: 18px;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .checkbox--material__checkmark {
@@ -3351,7 +3348,7 @@ ons-range[disabled] .range {
 */
 .radio-button--material {
   line-height: 22px;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .radio-button--material__checkmark {
@@ -4148,7 +4145,7 @@ ons-range[disabled] .range {
     </ul>
 */
 .list--material {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   border: 0;
 }
@@ -4762,7 +4759,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
   font-size: 20px;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #212121;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1px, transparent), color-stop(1px, #afafaf));
@@ -4791,7 +4788,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   top: 2px;
   font-size: 16px;
   font-weight: 400;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   pointer-events: none;
 }
 .text-input--material__label--active {
@@ -5078,7 +5075,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
     </div>
 */
 .dialog--material {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-align: left;
   -webkit-box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.4);
@@ -5410,7 +5407,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.4);
 }
 .alert-dialog-title--material {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-align: left;
   font-size: 20px;
@@ -5419,7 +5416,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   color: #212121;
 }
 .alert-dialog-content--material {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-align: left;
   font-size: 16px;
@@ -5438,7 +5435,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   box-sizing: border-box;
 }
 .alert-dialog-button--material {
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
   display: inline-block;
@@ -6143,7 +6140,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-family: 'open sans light', 'open sans regular', sans-serif;
+  font-family: 'open sans light', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   width: 56px;
   height: 56px;
