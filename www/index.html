@@ -135,9 +135,9 @@
     Enter your due date: </p>
     <input type="date" class="datepicker" id="duedate"> </input>
     <br><br> or <br>
-    <p> Enter your last menstrual period date: </p>
+    <!--p> Enter your last menstrual period date: </p>
     <input type="date" class="datepicker" id="lmp_date"> </input>
-    <br><br>
+    <br><br-->
     <ons-button class="inputbtn" onclick="calcCurrentWeek()"> Submit </ons-button>
     <p id="demo" hidden="hidden"></p>
     </div>
@@ -215,7 +215,7 @@
         </div>
       </li>
 
-      <li class="list__item">
+      <!--li class="list__item">
         <div class="list__item__center">
     
           <div class="list__item__subtitle" align="center">
@@ -227,7 +227,7 @@
           </div>
       
         </div>
-      </li>
+      </li-->
 
       <li class="list__item">
         <div class="list__item__center">
@@ -400,6 +400,62 @@
 
     </div>
 
+    <ons-dialog id="editbby">
+    <p class="largefont2" align="center"> Edit Baby Details </p>
+
+      <ul class="list">
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+        <ons-input type="date" modifier="underbar" class="input2" id="newduedate"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Due date
+          </div>
+      
+        </div>
+      </li>
+
+      <!--li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+        <ons-input type="number" modifier="underbar" class="input2" id="bbylength"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Length (in inches)
+          </div>
+      
+        </div>
+      </li>
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+        <ons-input type="number" modifier="underbar" class="input2" id="bbyweight"></ons-input>
+          </div>
+        
+          <div class="list__item__title" id="bbyweightinput">
+            
+          </div>
+      
+        </div>
+      </li-->
+
+
+      <li>
+        <div align="right">
+        <ons-button class="button button--material--flat" onclick="editbabydetails()"> UPDATE </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('editbby')"> CANCEL </ons-button>
+      </li>
+      </ul>
+    </ons-dialog>
+
     <div id="profilelist"></div>
 
     <ons-list id="appointlist"></ons-list>
@@ -462,22 +518,56 @@
     <div align="center" style="overflow: scroll; height: 90%">
     <text id="current_user" hidden="hidden"></text>
     <img src="#" id="profilepic" class="img-circle" hidden="hidden">
+    <span class="right" style="font-size: 30px; color: #7E7E7E;" onclick="showDialog('addform')"> <ons-icon icon="ion-plus"></ons-icon> &nbsp; </span>
     <br><br>
     <p id="weeks" hidden="hidden"></p>
-    <text class="customheader2">WEEK <text id="tdweeks"></text></text>
+    <text class="customheader2" onclick="planloader()">WEEK <text id="tdweeks"></text></text>
     <br><br>
     
     <ul class="list" id="todolist"> </ul>
 
     <ons-dialog id="addform">
-      <div style="padding: 10px;">
-        <br>
-        <textarea class="textarea" rows="5" placeholder="Activity desciption" id="new_activity"></textarea>
-        <div align="right">
-        <ons-button class="button button--material--flat" onclick="addactivity()"> OK </ons-button> 
-        <ons-button class="button button--material--flat" onclick="hideDialog('addform')"> CANCEL </ons-button>
+    <p class="largefont2" align="center"> Add To Do Activity </p>
+
+      <ul class="list">
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+        <ons-input type="number" modifier="underbar" class="input2" id="week_new_activity" placeholder="insert week between 1 - 42"> 
+          </ons-input>
+          </div>
+          
+        
+          <div class="list__item__title">
+            Week 
+          </div>
+      
         </div>
-      </div>
+      </li>
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+        <textarea class="textarea" rows="5" placeholder="Type here" id="new_activity"></textarea>
+          </div>
+        
+          <div class="list__item__title">
+            Activity description
+          </div>
+      
+        </div>
+      </li>
+
+
+      <li>
+        <div align="right">
+        <ons-button class="button button--material--flat" onclick="addactivity()"> UPDATE </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('addform')"> CANCEL </ons-button>
+      </li>
+      </ul>
     </ons-dialog>
 
     <p id="demo" hidden="hidden"></p>

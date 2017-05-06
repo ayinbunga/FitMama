@@ -45,7 +45,6 @@ var planloader = function() {
   checkCurrentWeek();
   displaylist();
   fn.load('plan.html');
-  
 };
 
 var showDialog = function(id) {
@@ -83,8 +82,8 @@ $('document').ready(function(){
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     profileloader();
     displayBabyDetails(currentweek);
-
   }
+
   else {
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     fn.load('login.html');
@@ -140,6 +139,7 @@ var login = function(){
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user WHERE username=? and password=?', [username,password], querySuccess, errorCB);
       });
+
       
       function querySuccess(tx, results){
 
@@ -195,7 +195,7 @@ var calcCurrentWeek = function() {
   else
   {
       db.transaction(function(tx){
-        tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate) VALUES(?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate]);
+        tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate, baby_weight, baby_length) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate, babyweight[weeks-1], babylength[weeks-1]]);
       });
 
       
@@ -263,6 +263,10 @@ var checkCurrentWeek = function () {
 
               var currentweek = localStorage.getItem('currentweek');
 
+              db.transaction(function (tx) {
+               tx.executeSql('UPDATE user_profile SET baby_length=?, baby_weight=? WHERE username=?', [babylength[currentweek-1], babyweight[currentweek-1], username]);
+               });
+
               document.getElementById("weeks").innerHTML = currentweek;
               $('#profilepic').attr('src', url);
 
@@ -298,9 +302,12 @@ var addactivity = function () {
   var username = localStorage.getItem('username');
   var currentweek = localStorage.getItem('currentweek');
   var new_activity = $("#new_activity").val();
+  var week_new_activity = $("#week_new_activity").val();
+
+  if(week_new_activity > 0 && week_new_activity < 43) {
 
   function populateDB(tx){
-    tx.executeSql('INSERT INTO user_activity (username, week, activity) VALUES(?,?,?)', [ username, currentweek, new_activity]);
+    tx.executeSql('INSERT INTO weekly_list (username, week, activity) VALUES(?,?,?)', [ username, week_new_activity, new_activity]);
     hideDialog('addform');
     planloader();
   }
@@ -313,6 +320,10 @@ var addactivity = function () {
   }    
   
   db.transaction(populateDB,errorCB,successCB);
+  }
+  else {
+    ons.notification.alert('You have input invalid number of weeks');
+  }
 };
 
 
@@ -468,7 +479,7 @@ var editprofile = function() {
   var username = localStorage.getItem('username');
   var firstname = $("#firstname").val();
   var lastname = $("#lastname").val();
-  var newdate = $("#newduedate").val();
+  //var newdate = $("#newduedate").val();
   
   ons.notification.confirm(
     {
@@ -493,7 +504,7 @@ var editprofile = function() {
 
               //if(pwd == password){
                 db.transaction(function (tx) {
-                  tx.executeSql('UPDATE user_profile SET firstname=?, lastname=?, duedate=? WHERE username = ?', [firstname, lastname, newdate, username]);
+                  tx.executeSql('UPDATE user_profile SET firstname=?, lastname=? WHERE username = ?', [firstname, lastname, username]);
                 });
               
                 profileloader();
@@ -555,6 +566,7 @@ var editprofileview = function() {
   var username = localStorage.getItem('username');
   var duedate = localStorage.getItem('duedate');
 
+
   db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
   });
@@ -568,7 +580,7 @@ var editprofileview = function() {
       var lastname = results.rows.item(i).lastname;
 
       document.getElementById("pro_username").setAttribute('value', username);
-      document.getElementById("newduedate").setAttribute('value', duedate);
+      
 
       if(firstname != ""){
           $("#firstname").attr("value", results.rows.item(i).firstname);
@@ -1081,7 +1093,7 @@ var displayBabyDetails = function(currentweek){
   var birthdate = date.getDate() + " " + getMonthName(date) + ", " + date.getFullYear();
         
   db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM weekly_info WHERE id = ?', [currentweek], querySuccess, errorCB);
+    tx.executeSql('SELECT * FROM user_profile WHERE username = ?', [username], querySuccess, errorCB);
   });
 
   function querySuccess(tx, results){
@@ -1097,9 +1109,12 @@ var displayBabyDetails = function(currentweek){
             for(i = 0; i < len; i++){
             if (currentweek > 22 ) {
                         $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ");
+                        $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditBby()'></ons-icon></ons-fab>");
+
           }
             else {
                         $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ");
+                        $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditBby()'></ons-icon></ons-fab>");
 
             }
           }
@@ -1338,6 +1353,18 @@ var showEditHosp = function() {
   showDialog('edithospital_form');
 };
 
+//load edit baby details form
+var showEditBby = function() {
+
+  var username = localStorage.getItem('username');
+  var currentweek = localStorage.getItem('currentweek');
+  var duedate = localStorage.getItem('duedate');
+
+  document.getElementById("newduedate").setAttribute('value', duedate);
+
+  showDialog('editbby');
+};
+
 //load add new appointment form
 
 var showAppoint = function() {
@@ -1388,19 +1415,86 @@ var edithosp = function() {
   displayHospDetails();
 };
 
+//edit user baby details
+
+var editbabydetails = function() {
+
+  var username = localStorage.getItem('username');
+  var currentweek = localStorage.getItem('currentweek');
+  var newduedate = $("#newduedate").val();
+  //var length = $("#bbylength").val();
+  //var weight = $("#bbyweight").val();
+
+  var thedate = $("#newduedate").val();
+  //console.log(thedate);
+  var today = new Date();
+  var last_menstrual_period = new Date(thedate);
+  
+  last_menstrual_period.setDate ( last_menstrual_period.getDate() - 280 );
+
+  var lmp_date = last_menstrual_period.getFullYear()+'-'+ last_menstrual_period.getMonth() +'-'+ last_menstrual_period.getDate();
+
+  var estimated_gestational_age = today - last_menstrual_period;
+  estimated_gestational_age = estimated_gestational_age/86400000;
+  var weeks = parseInt(estimated_gestational_age/7);
+
+  
+
+  if (weeks > 42 || weeks < 0 ) {
+    ons.notification.alert('The date you entered is not valid!');
+  }
+  else
+  {
+
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM user_profile WHERE username = ?', [username], querySuccess, errorCB);
+  });
+
+  }
+
+  function querySuccess(tx, results){
+    
+    var len = results.rows.length;  
+          
+    if(len > 0){
+            
+            db.transaction(function (tx) {
+                  tx.executeSql('UPDATE user_profile SET duedate=? WHERE username=?', [newduedate, username]);
+                  tx.executeSql('UPDATE user_profile SET baby_length=?, baby_weight=? WHERE username=?', [babylength[weeks-1], babyweight[weeks-1], username]);
+
+                });
+
+           profileloader();
+          //babyDetailscaller();
+
+
+
+          }
+
+          else {
+
+          }
+  }
+
+   function errorCB(err){
+      alert("Error" + err.code);  }
+
+  hideDialog('editbby');
+};
+
 var deleteAppoint = function(id) {
 
    function delDB(tx){
     tx.executeSql('DELETE FROM user_appointment WHERE id = ?', [id]);
     displayAppointment();
-  }
+    }
           
-  function errorCB(err){
+    function errorCB(err){
     alert("error");
-  }
+    }
     
-  function successCB(){
-  }    
+    function successCB(){
+    }    
   
-  db.transaction(delDB,errorCB,successCB);
+    db.transaction(delDB,errorCB,successCB);
 };
