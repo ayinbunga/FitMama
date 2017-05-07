@@ -216,6 +216,7 @@ var calcCurrentWeek = function() {
 
                             profileloader();
                             displayBabyDetails(weeks);
+                            location.reload();
                             
                         }
           }
@@ -229,7 +230,9 @@ var calcCurrentWeek = function() {
 
                             db.transaction(function(tx){
                               tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate, baby_weight, baby_length) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate, babyweight[weeks-1], babylength[weeks-1]]);
-                            });                           
+                            });
+
+                            location.reload();                           
                             
                             function querySuccess(tx, results){
                               var len = results.rows.length;
@@ -249,8 +252,6 @@ var calcCurrentWeek = function() {
       
   function errorCB(err){
       alert("Error" + err.code);  }
-
-  location.reload();
 
 
 };
@@ -1244,7 +1245,7 @@ var displayAppointment = function() {
       
       var len = results.rows.length;
 
-      $("#ptitle").attr("value","Appointment "+(len+1)+" ")
+      $("#ptitle").attr("value","Check Up "+(len+1)+" ")
           
           if(len > 0){
             for(i = len-1; i >= 0; i--){
@@ -1255,7 +1256,7 @@ var displayAppointment = function() {
   
 
           else {
-            document.getElementById("appointlist").innerHTML = "<p align='center'> No appointment added yet. </p> ";
+            document.getElementById("appointlist").innerHTML = "<br><br> <p align='center'> You can add your checkup dates or doctor's appointment here. </p> ";
 
           }
 
@@ -1365,7 +1366,7 @@ var displayHistory = function() {
   
 
           else {
-            document.getElementById("appointlist").innerHTML = "<p align='center'> Exercise history is empty. Start exercising now! </p> ";
+            document.getElementById("appointlist").innerHTML = "<br><br> <p align='center'> Exercise history is empty. <br> Start exercising now! </p> ";
 
           }
 

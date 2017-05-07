@@ -110,7 +110,7 @@
     <div style="text-align: center;">
       <br><br>
         <img src="img/logo2.png" height="200px" width="200px">
-      <br> <br>
+      <br> <br> <br>
         <ons-input id="signup_username" modifier="underbar" placeholder="Username" float required class="input"> </ons-input>
           <br>
         <ons-input id="signup_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
@@ -129,16 +129,16 @@
   <ons-page id="duedatecalc">
     <ons-toolbar>
     </ons-toolbar>
-    <div align="center">
+    <div align="center" style="margin-top: 150px;">
     <h2> Welcome to FitMama!</h2>
     <p> Calculate your current week of pregnancy. <br> <br>
     Enter your due date: </p>
     <input type="date" class="datepicker" id="duedate"> </input>
-    <br><br> or <br>
+    <br><br><br>
     <!--p> Enter your last menstrual period date: </p>
     <input type="date" class="datepicker" id="lmp_date"> </input>
     <br><br-->
-    <ons-button class="inputbtn" onclick="calcCurrentWeek()"> Submit </ons-button>
+    <ons-button onclick="calcCurrentWeek()"> Submit </ons-button>
     <p id="demo" hidden="hidden"></p>
     </div>
   </ons-page>
@@ -373,28 +373,28 @@
       <label class="tab-bar__item tab-bar--top-border__item">
         <input type="radio" name="top-tab-bar-b" onclick="babyDetailscaller()" id="bbybtn">
         <button class="tab-bar__button tab-bar--top-border__button"">
-          Your Baby 
+          <text style="font-size: 25px;"><ons-icon icon="fa-heart"></ons-icon></text>
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
         <input type="radio" name="top-tab-bar-b" onclick="displayHospDetails()" id="hospbtn">
         <button class="tab-bar__button tab-bar--top-border__button">
-          Hospital
+          <text style="font-size: 25px;"><ons-icon icon="fa-hospital-o"></ons-icon></text>
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
         <input type="radio" name="top-tab-bar-b" onclick="displayAppointment()" id="appointbtn">
         <button class="tab-bar__button tab-bar--top-border__button">
-          Appointment
+          <text style="font-size: 25px;"><ons-icon icon="md-assignment-o"></ons-icon></text>
         </button>
       </label>
 
       <label class="tab-bar__item tab-bar--top-border__item">
         <input type="radio" name="top-tab-bar-b" onclick="displayHistory()" id="historybtn">
         <button class="tab-bar__button tab-bar--top-border__button">
-          History
+          <text style="font-size: 25px;"><ons-icon icon="fa-history"></ons-icon></text>
         </button>
       </label>
 
