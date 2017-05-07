@@ -78,10 +78,17 @@ $('document').ready(function(){
   var username = localStorage.getItem('username');
   var currentweek = localStorage.getItem('currentweek')
 
-  if (username != ""){
+  if (username != "") {
+    if (currentweek < 43) {
     var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
     profileloader();
     displayBabyDetails(currentweek);
+    }
+    else {
+      var db = openDatabase('fitmama', '1', 'fitmama', 2 * 1024 * 1024);
+      fn.load('congratulations.html');
+    }
+
   }
 
   else {
@@ -187,37 +194,65 @@ var calcCurrentWeek = function() {
   estimated_gestational_age = estimated_gestational_age/86400000;
   var weeks = parseInt(estimated_gestational_age/7);
 
-  
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
+  });
 
-  if (weeks > 42 || weeks < 0 ) {
-    alert('The date you entered is not valid!');
-  }
-  else
-  {
-      db.transaction(function(tx){
-        tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate, baby_weight, baby_length) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate, babyweight[weeks-1], babylength[weeks-1]]);
-      });
-
-      
-      
-      
-      function querySuccess(tx, results){
-        var len = results.rows.length;
+  function querySuccess(tx, results){
+      var len = results.rows.length;  
           if(len > 0){
-              
-              }
-        else {
-          ons.notification.alert("Invalid input!") }
-      }
-    
-      function errorCB(err){
-        alert("Error" + err.code);  }
+                    if (weeks > 42 || weeks < 0 ) {
+                          alert('The date you entered is not valid!');
+                        }
+                        else
+                        {
+                            console.log(username);
+                            $("#appointlist").empty();
+                            $("#profilelist").empty();
+                            db.transaction(function (tx) {
+                              tx.executeSql('UPDATE user_profile SET duedate=?, baby_weight=?, baby_length=? WHERE username=?', [thedate, babyweight[weeks-1], babylength[weeks-1], username]);
 
-    localStorage.setItem("username", username);
-    location.reload();
-    
+                            });
 
+                            profileloader();
+                            displayBabyDetails(weeks);
+                            
+                        }
+          }
+
+          else {
+            if (weeks > 42 || weeks < 0 ) {
+                          alert('The date you entered is not valid!');
+                        }
+                        else
+                        {
+
+                            db.transaction(function(tx){
+                              tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate, baby_weight, baby_length) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate, babyweight[weeks-1], babylength[weeks-1]]);
+                            });                           
+                            
+                            function querySuccess(tx, results){
+                              var len = results.rows.length;
+                                if(len > 0){
+                                    
+                                    }
+                              else {
+                                ons.notification.alert("Invalid input!") }
+                            }
+                          
+                            function errorCB(err){
+                              alert("Error" + err.code);  }
+                          }
+
+          }
   }
+      
+  function errorCB(err){
+      alert("Error" + err.code);  }
+
+  location.reload();
+
+
 };
 
 //check current week for current user and display user info
@@ -340,8 +375,18 @@ var displayinfo = function() {
   function querySuccess(tx, results){
       var len = results.rows.length;  
           if(len > 0){
+            if ( currentweek < 43 ) {
             for(i = 0;i < len; i++) {
               document.getElementById("babyinfo").innerHTML = results.rows.item(i).info;
+              var month = parseInt(currentweek/4);
+
+              $('#babyimg').attr('src','img/baby/'+month+'.jpg');
+
+            }
+            }
+            else {
+              document.getElementById("babyinfo").innerHTML = "Congratulations on your baby birth!";
+              $('#babyimg').attr('src','img/baby/baby.jpg');
             }
           }
 
@@ -360,18 +405,26 @@ var displaylist = function() {
 
   var currentweek = localStorage.getItem('currentweek');
   var username = localStorage.getItem('username');
-        
+  
+  //if ( currentweek < 43 ){
   db.transaction(function(tx){
     tx.executeSql('SELECT * FROM weekly_list WHERE week = ? AND username= ?', [currentweek, username], querySuccess, errorCB);
   });
+  //}
+  //else{
+    // $("#todolist").append("<p class='customheader3'> Congratulations on your newborn baby and good luck !</p>");
+  //}
 
   function querySuccess(tx, results){
       var len = results.rows.length;  
           if(len > 0){
+            
             document.getElementById("tdweeks").innerHTML = currentweek;
             for(i = 0;i < len; i++) {
               $("#todolist").append("<li class='list__item list__item--tappable'> <div class='list__item__left list__item--material__left'> <label class='checkbox'> <input type='checkbox' id='"+results.rows.item(i).id+"' class='checkbox__input' name='c' onclick='check(this.id, itemfor"+ results.rows.item(i).id +".id)' "+ results.rows.item(i).status +"> <div class='checkbox__checkmark'></div> </label></div> <label for='"+results.rows.item(i).id+"' id='itemfor"+results.rows.item(i).id+"' class='list__item__center'>" + results.rows.item(i).activity + "</label> </li>");
             }
+            
+            
 
             for(x = 1; x < 43; x++) {
               if (x<10) {
@@ -391,6 +444,7 @@ var displaylist = function() {
       
   function errorCB(err){
       alert("Error" + err.code);  }
+
 };
 
 var crossofflist = function(id){
@@ -637,7 +691,8 @@ var countdownActivate = function() {
       // If the count down is finished, write some text 
       if (distance < 0) {
           clearInterval(x);
-          document.getElementById("demo").innerHTML = "EXPIRED";
+          document.getElementById("demo").innerHTML = "<text class='customheader3'> Your baby will come anytime soon !</text>";
+          document.getElementById("duedate_cd_title").setAttribute('hidden','true');
       }
 
       }, 1000);
@@ -702,8 +757,8 @@ var playVideo = function(type) {
               
 
             /*document.getElementById('timer').innerHTML =
-                      02 + ":" + 30;
-                      startTimer();
+              //        02 + ":" + 25;
+               //       startTimer();
 
             function startTimer() {
                       var presentTime = document.getElementById('timer').innerHTML;
@@ -726,7 +781,7 @@ var playVideo = function(type) {
                       if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
                       if (sec < 0) {sec = "59"};
                       return sec;
-            }*/
+            }/*
 
 
             /*var counter = function(x){
@@ -756,8 +811,6 @@ var playVideo = function(type) {
                   if ( check == -1 ) {
                       localStorage.setItem((x-1)+'video',30);
                   }
-
-              console.log(x);
 
               function run() {
 
@@ -1450,7 +1503,7 @@ var editbabydetails = function() {
     tx.executeSql('SELECT * FROM user_profile WHERE username = ?', [username], querySuccess, errorCB);
   });
 
-  }
+  //}
 
   function querySuccess(tx, results){
     
@@ -1464,8 +1517,9 @@ var editbabydetails = function() {
 
                 });
 
-           profileloader();
+          profileloader();
           //babyDetailscaller();
+          location.reload();
 
 
 
@@ -1480,6 +1534,7 @@ var editbabydetails = function() {
       alert("Error" + err.code);  }
 
   hideDialog('editbby');
+  }
 };
 
 var deleteAppoint = function(id) {

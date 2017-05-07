@@ -511,10 +511,6 @@
       </div>
     </ons-toolbar>
 
-    <ons-pull-hook id="pull-hook">
-    Pull to refresh
-    </ons-pull-hook>
-
     <div align="center" style="overflow: scroll; height: 90%">
     <text id="current_user" hidden="hidden"></text>
     <img src="#" id="profilepic" class="img-circle" hidden="hidden">
@@ -524,7 +520,7 @@
     <text class="customheader2" onclick="planloader()">WEEK <text id="tdweeks"></text></text>
     <br><br>
     
-    <ul class="list" id="todolist"> </ul>
+    <div style="margin-bottom: 70px; overflow: scroll;"> <ul class="list" id="todolist"> </ul> </div>
 
     <ons-dialog id="addform">
     <p class="largefont2" align="center"> Add To Do Activity </p>
@@ -611,9 +607,9 @@
       <br> <br>
     </div>
 
-    <p> <img src="img/baby.jpg" width="150px" height="150px" class="img-circle"> </p>
+    <p> <img src="" id="babyimg" width="150px" height="150px" class="img-circle2"> </p>
 
-      <text class="customheader3">Baby Due Date Countdown</text>
+      <text class="customheader3" id="duedate_cd_title">Baby Due Date Countdown</text>
       <div id="demo"></div>
 
       <div class="card">
@@ -723,7 +719,7 @@
       
       <tr>
         <td width="33%" height="100px"> 
-          <text style="font-size: 25px; color: grey;" id="exer_name2"> </text> </div>
+          <text style="font-size: 25px; color: grey;" id="exer_name2"> </text>
         </td>
 
         <td width="33%"> 
@@ -770,6 +766,25 @@
     </div>
     
 
+
+  </ons-page>
+</ons-template>
+
+<ons-template id="congratulations.html">
+  <ons-page id="congratulations">
+  <ons-toolbar>
+      
+    </ons-toolbar>
+  
+  <div  style="margin-top: 150px;" align="center">
+  <h1> CONGRATULATIONS </h1>
+  <p> on your newborn baby !</p>
+  
+  <br>
+  <p> Pregnant again? Set a new due date </p>
+  <br>
+  <ons-button onclick="fn.load('duedatecalc.html')"> Set a new due date </ons-button>
+  </div>
 
   </ons-page>
 </ons-template>

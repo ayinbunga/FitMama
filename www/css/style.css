@@ -9,6 +9,10 @@ $colors: (
   dark-theme: #E61243
 );
 */
+.pink
+{
+	background-color: #FC8585;
+}
 
 .input {
     width: 80%;
@@ -38,6 +42,11 @@ $colors: (
 
 .img-circle {
     border-radius: 50%;
+}
+
+.img-circle2 {
+    border-radius: 50%;
+    border:2px solid  #FC8585;
 }
 
 .smallfont {
