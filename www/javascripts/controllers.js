@@ -884,8 +884,8 @@ var playVideo = function(type) {
                 document.getElementById("videoPlayer").innerHTML = ("<h3 style='margin-top: 200px;'> EXERCISE COMPLETED </h3>");
                 document.getElementById('current-next').setAttribute('hidden','true');
                 $("#play-pause").attr('icon','fa-play');
-                var music = document.getElementById("music");
-                music.pause();
+                //var music = document.getElementById("music");
+                //music.pause();
 
                 var date = new Date();
 
@@ -1003,7 +1003,7 @@ var stopcounter = function(x){
 
 var pause = function(){
   var video = document.getElementById("myVideo");
-  var music = document.getElementById("music");
+  //var music = document.getElementById("music");
   //var value = $("#progressBar").val();
         
                 if (video.paused == true) {
@@ -1012,17 +1012,17 @@ var pause = function(){
                 //console.log(value);
                 video.play();
 
-                if ($("#stopmusicicon").attr('icon') == "volume-up"){
-                  music.play();
-                }
+                //if ($("#stopmusicicon").attr('icon') == "volume-up"){
+                  //music.play();
+                //}
                 $("#play-pause").attr('icon','pause-circle-o');
                 
                 }
                 else
                 {
                   video.pause();
-                  music.pause();
-                  $("#play-pause").attr('icon','fa-play');
+                  //music.pause();
+                  //$("#play-pause").attr('icon','fa-play');
                   //stopcounter(value);
                 }
 }
