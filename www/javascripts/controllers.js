@@ -206,9 +206,9 @@ var calcCurrentWeek = function() {
                         }
                         else
                         {
-                            console.log(username);
-                            $("#appointlist").empty();
-                            $("#profilelist").empty();
+                            //console.log(username);
+                            //$("#appointlist").empty();
+                            //$("#profilelist").empty();
                             db.transaction(function (tx) {
                               tx.executeSql('UPDATE user_profile SET duedate=?, baby_weight=?, baby_length=? WHERE username=?', [thedate, babyweight[weeks-1], babylength[weeks-1], username]);
 
