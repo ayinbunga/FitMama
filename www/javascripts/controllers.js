@@ -114,7 +114,7 @@ var signup = function() {
         }
           
     function errorCB(err){
-        alert("error");
+        ons.notification.alert("Username is taken. Choose a different username.");
         }
     
     function successCB(){
@@ -127,7 +127,7 @@ var signup = function() {
 
   else { 
 
-    alert("Invalid input!");
+    ons.notification.alert("You must fill out each field!");
     }
 };
 
@@ -164,9 +164,9 @@ var login = function(){
       }
     
       function errorCB(err){
-        alert("Error" + err.code);  }
+        ons.notification.alert("Error" + err.code);  }
   }
-  else { ons.notification.alert("Invalid input!") }
+  else { ons.notification.alert("You must fill out each field!") }
 
     //location.reload();
 };
@@ -202,7 +202,7 @@ var calcCurrentWeek = function() {
       var len = results.rows.length;  
           if(len > 0){
                     if (weeks > 42 || weeks < 0 ) {
-                          alert('The date you entered is not valid!');
+                          ons.notification.alert('The date you entered is not valid!');
                         }
                         else
                         {
@@ -223,7 +223,7 @@ var calcCurrentWeek = function() {
 
           else {
             if (weeks > 42 || weeks < 0 ) {
-                          alert('The date you entered is not valid!');
+                          ons.notification.alert('The date you entered is not valid!');
                         }
                         else
                         {
@@ -244,14 +244,14 @@ var calcCurrentWeek = function() {
                             }
                           
                             function errorCB(err){
-                              alert("Error" + err.code);  }
+                              ons.notification.alert("Error" + err.code);  }
                           }
 
           }
   }
       
   function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 
 
 };
@@ -327,7 +327,7 @@ var checkCurrentWeek = function () {
       }
       
       function errorCB(err){
-        alert("Error" + err.code);  }
+        ons.notification.alert("Error" + err.code);  }
 };
 
 
@@ -341,6 +341,7 @@ var addactivity = function () {
   var week_new_activity = $("#week_new_activity").val();
 
   if(week_new_activity > 0 && week_new_activity < 43) {
+    if (new_activity != "") {
 
   function populateDB(tx){
     tx.executeSql('INSERT INTO weekly_list (username, week, activity) VALUES(?,?,?)', [ username, week_new_activity, new_activity]);
@@ -349,13 +350,17 @@ var addactivity = function () {
   }
           
   function errorCB(err){
-    alert("error");
+    ons.notification.alert("error");
   }
     
   function successCB(){
   }    
   
   db.transaction(populateDB,errorCB,successCB);
+  }
+    else {
+      ons.notification.alert('Activity description must be filled');
+    }
   }
   else {
     ons.notification.alert('You have input invalid number of weeks');
@@ -397,7 +402,7 @@ var displayinfo = function() {
   }
       
   function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 
 //display to do lists
@@ -444,7 +449,7 @@ var displaylist = function() {
   }
       
   function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 
 };
 
@@ -479,7 +484,7 @@ var check = function(id, item_id) {
               }
     
               function errorCB(err){
-                alert("Error" + err.code);  }
+                ons.notification.alert("Error" + err.code);  }
               }
 
               else if (results.rows.item(i).status == "checked") {
@@ -499,7 +504,7 @@ var check = function(id, item_id) {
               }
     
               function errorCB(err){
-                alert("Error" + err.code);  }
+                ons.notification.alert("Error" + err.code);  }
               }
 
               }
@@ -512,7 +517,7 @@ var check = function(id, item_id) {
   }
       
   function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 
   /*if($("#"+id+"").is(':checked')){
   $("#"+item_id+"").css({
@@ -535,12 +540,7 @@ var editprofile = function() {
   var firstname = $("#firstname").val();
   var lastname = $("#lastname").val();
   //var newdate = $("#newduedate").val();
-  
-  ons.notification.confirm(
-    {
-    message: 'Are you sure?',
-    
-    callback: function() {
+
       
       db.transaction(function(tx){
         tx.executeSql('SELECT * FROM user WHERE username=?', [username], querySuccess, errorCB);
@@ -572,9 +572,8 @@ var editprofile = function() {
       }
       
     function errorCB(err){
-          alert("Error" + err.code);  }
-    }
-  });
+          ons.notification.alert("Error" + err.code);  }
+    
 };
 
 var loadpic = function(){
@@ -655,7 +654,7 @@ var editprofileview = function() {
   }
 
   function errorCB(err){
-    alert("Error" + err.code);  } 
+    ons.notification.alert("Error" + err.code);  } 
 };
 
 //baby due date countdown
@@ -727,7 +726,7 @@ var displayToDo = function(x) {
   }
       
   function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 
 //play video playlists
@@ -911,7 +910,7 @@ var playVideo = function(type) {
                     }
                           
                     function errorCB(err){
-                      alert("error");
+                      ons.notification.alert("error");
                     }
                       
                     function successCB(){
@@ -929,7 +928,7 @@ var playVideo = function(type) {
                     }
                           
                     function errorCB(err){
-                      alert("error");
+                      ons.notification.alert("error");
                     }
                       
                     function successCB(){
@@ -947,7 +946,7 @@ var playVideo = function(type) {
                     }
                           
                     function errorCB(err){
-                      alert("error");
+                      ons.notification.alert("error");
                     }
                       
                     function successCB(){
@@ -966,7 +965,7 @@ var playVideo = function(type) {
                     }
                           
                     function errorCB(err){
-                      alert("error");
+                      ons.notification.alert("error");
                     }
                       
                     function successCB(){
@@ -987,7 +986,7 @@ var playVideo = function(type) {
   }
       
   function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 
 
@@ -1036,13 +1035,13 @@ var mute = function(){
                 
                 video.muted = false;
 
-                $("#narration").attr('icon','microphone');
+                $("#narration").attr('icon','volume-up');
                 
                 }
                 else
                 {
                   video.muted = true;
-                  $("#narration").attr('icon','microphone-slash');
+                  $("#narration").attr('icon','volume-off');
                 }
 };
 
@@ -1081,7 +1080,7 @@ var revid = function(value){
 
 };
 
-var stopmusic = function(){
+/*var stopmusic = function(){
   var music = document.getElementById("music");
   //var value = $("#progressBar").val();
         
@@ -1099,7 +1098,7 @@ var stopmusic = function(){
                   $("#stopmusicicon").attr('icon','volume-off');
                   //stopcounter(value);
                 }
-};
+};*/
 
 //load exercise page
 
@@ -1162,13 +1161,13 @@ var displayBabyDetails = function(currentweek){
     if(len > 0){
             for(i = 0; i < len; i++){
             if (currentweek > 22 ) {
-                        $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ");
-                        $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditBby()'></ons-icon></ons-fab>");
+                        $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <text style='font-size: 20px; color: grey;' onclick='showEditBby()'> <ons-icon icon='md-edit'></ons-icon>  &nbsp; </text> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  lb </span>  </ons-list-item> </ons-list> ");
+                        //$("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditBby()'></ons-icon></ons-fab>");
 
           }
             else {
-                        $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ");
-                        $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditBby()'></ons-icon></ons-fab>");
+                        $("#profilelist").append("<ons-list> <ons-list-item> <p> Expected Date </p> <span class='right'> <text style='font-size: 20px; color: grey;' onclick='showEditBby()'> <ons-icon icon='md-edit'></ons-icon> &nbsp; </text> <p class='largefont2'> "+ birthdate +" </p> </span> </ons-list-item> <ons-list-item> <p> Baby's Length </p> <span class='right'> <p class='largefont2'> "+ results.rows.item(i).baby_length +"</p>  &nbsp; in </span> </ons-list-item> <ons-list-item> <p> Baby's Weight </p> <span class='right'> <p class='largefont2'>"+ results.rows.item(i).baby_weight +"</p> &nbsp;  oz </span> &nbsp; </ons-list-item> </ons-list> ");
+                       // $("#profilelist").append("<ons-fab position='bottom right' ripple> <ons-icon icon='md-edit' onclick='showEditBby()'></ons-icon></ons-fab>");
 
             }
           }
@@ -1181,7 +1180,7 @@ var displayBabyDetails = function(currentweek){
   }
 
    function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 
 //display hospital details on user profile 
@@ -1220,7 +1219,7 @@ var displayHospDetails = function(){
   }
 
    function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 
 //display appoinment details on user profile
@@ -1263,7 +1262,7 @@ var displayAppointment = function() {
   }
 
    function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 
 //
@@ -1373,7 +1372,7 @@ var displayHistory = function() {
   }
 
    function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 };
 //add new appointment
 
@@ -1384,6 +1383,7 @@ var addappoint = function(){
   var title = $("#ptitle").val();
   var username = localStorage.getItem("username");
 
+  if( title != "") {
   function populateDB(tx){
     tx.executeSql('INSERT INTO user_appointment (username, date, time, appoint_title) VALUES(?,?,?,?)', [ username, date, time, title]);
     hideDialog('appointform');
@@ -1392,13 +1392,17 @@ var addappoint = function(){
   }
           
   function errorCB(err){
-    alert("error");
+    ons.notification.alert("error");
   }
     
   function successCB(){
   }    
   
   db.transaction(populateDB,errorCB,successCB);
+  }
+  else {
+    ons.notification.alert('Title cannot be empty!');
+  }
 };
 
 //load edit hospital form
@@ -1463,7 +1467,7 @@ var edithosp = function() {
   }
 
    function errorCB(err){
-      alert("Error" + err.code);  }
+      ons.notification.alert("Error" + err.code);  }
 
   hideDialog('edithospital_form');
   displayHospDetails();
@@ -1500,17 +1504,11 @@ var editbabydetails = function() {
   else
   {
 
-  db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM user_profile WHERE username = ?', [username], querySuccess, errorCB);
-  });
-
-  //}
-
-  function querySuccess(tx, results){
+    ons.notification.confirm(
+    {
+    message: 'Are you sure?',
     
-    var len = results.rows.length;  
-          
-    if(len > 0){
+    callback: function() {
             
             db.transaction(function (tx) {
                   tx.executeSql('UPDATE user_profile SET duedate=? WHERE username=?', [newduedate, username]);
@@ -1524,17 +1522,9 @@ var editbabydetails = function() {
 
 
 
-          }
-
-          else {
-
-          }
-  }
-
-   function errorCB(err){
-      alert("Error" + err.code);  }
-
   hideDialog('editbby');
+  }
+  });
   }
 };
 
@@ -1546,7 +1536,7 @@ var deleteAppoint = function(id) {
     }
           
     function errorCB(err){
-    alert("error");
+    ons.notification.alert("error");
     }
     
     function successCB(){
