@@ -69,7 +69,7 @@ var logout = function() {
   localStorage.setItem("duedate","");
   localStorage.setItem("days","");
   fn.load('login.html');
-}
+};
 
 //open up application
 
@@ -194,66 +194,41 @@ var calcCurrentWeek = function() {
   estimated_gestational_age = estimated_gestational_age/86400000;
   var weeks = parseInt(estimated_gestational_age/7);
 
-  db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM user_profile WHERE username=?', [username], querySuccess, errorCB);
-  });
+  
 
-  function querySuccess(tx, results){
-      var len = results.rows.length;  
-          if(len > 0){
-                    if (weeks > 42 || weeks < 0 ) {
-                          ons.notification.alert('The date you entered is not valid!');
-                        }
-                        else
-                        {
-                            //console.log(username);
-                            //$("#appointlist").empty();
-                            //$("#profilelist").empty();
-                            db.transaction(function (tx) {
-                              tx.executeSql('UPDATE user_profile SET duedate=?, baby_weight=?, baby_length=? WHERE username=?', [thedate, babyweight[weeks-1], babylength[weeks-1], username]);
-
-                            });
-
-                            profileloader();
-                            displayBabyDetails(weeks);
-                            location.reload();
-                            
-                        }
-          }
-
-          else {
-            if (weeks > 42 || weeks < 0 ) {
-                          ons.notification.alert('The date you entered is not valid!');
-                        }
-                        else
-                        {
-
-                            db.transaction(function(tx){
-                              tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate, baby_weight, baby_length) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate, babyweight[weeks-1], babylength[weeks-1]]);
-                            });
-
-                            location.reload();                           
-                            
-                            function querySuccess(tx, results){
-                              var len = results.rows.length;
-                                if(len > 0){
-                                    
-                                    }
-                              else {
-                                ons.notification.alert("Invalid input!") }
-                            }
-                          
-                            function errorCB(err){
-                              ons.notification.alert("Error" + err.code);  }
-                          }
-
-          }
+  if (weeks > 42 || weeks < 0 ) {
+    alert('The date you entered is not valid!');
   }
+  else
+  {
+      db.transaction(function(tx){
+        tx.executeSql('INSERT INTO user_profile(username, firstname, lastname, iconimg, lmp_date, duedate, baby_length, baby_weight) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [username, NULL, NULL, iconimg, lmp_date, thedate, babylength[weeks-1], babyweight[weeks-1]]);
+      });
+
+      localStorage.setItem('currentweek', weeks);
+
+      profileloader();
+      displayBabyDetails(weeks);
+      location.reload();
+
       
-  function errorCB(err){
-      ons.notification.alert("Error" + err.code);  }
+   /*   function querySuccess(tx, results){
+        var len = results.rows.length;
+          if(len > 0){
+              
+              }
+        else {
+          ons.notification.alert("Invalid input!") }
+      }
+    
+      function errorCB(err){
+        ons.notification.alert("Error" + err.code);  }
 
+    localStorage.setItem("username", username);
+    location.reload();*/
+    
 
+  }                  
 };
 
 //check current week for current user and display user info
@@ -453,8 +428,6 @@ var displaylist = function() {
 
 };
 
-var crossofflist = function(id){
-};
 
 var check = function(id, item_id) {
 
@@ -999,7 +972,7 @@ var stopcounter = function(x){
               clearInterval(downloadTimer);
             
   }, 0);
-}
+};
 
 var pause = function(){
   var video = document.getElementById("myVideo");
@@ -1022,10 +995,10 @@ var pause = function(){
                 {
                   video.pause();
                   //music.pause();
-                  //$("#play-pause").attr('icon','fa-play');
+                  $("#play-pause").attr('icon','fa-play');
                   //stopcounter(value);
                 }
-}
+};
 
 var mute = function(){
   var video = document.getElementById("myVideo");
@@ -1068,6 +1041,9 @@ var stopvid = function(value){
 
 var revid = function(value){
   var video = document.getElementById("myVideo");
+  var videoid = $("#video_no_id").val();
+
+  if (videoid != 1 ) {
   video.currentTime += value;
   var x = $("#video_no_id").val();
 
@@ -1076,6 +1052,7 @@ var revid = function(value){
   }
   else if ( x == 2 ) {
     $("#video_no_id").attr('value', (x-1));
+  }
   }
 
 };
@@ -1515,6 +1492,8 @@ var editbabydetails = function() {
                   tx.executeSql('UPDATE user_profile SET baby_length=?, baby_weight=? WHERE username=?', [babylength[weeks-1], babyweight[weeks-1], username]);
 
                 });
+
+            localStorage.setItem('currentweek',weeks);
 
           profileloader();
           //babyDetailscaller();

@@ -6,8 +6,8 @@
 	db.transaction(function(tx){
 		//tx.executeSql('DROP TABLE IF EXISTS user');
 		//tx.executeSql('DROP TABLE IF EXISTS user_profile');
-		//tx.executeSql('DROP TABLE IF EXISTS user_activity');
 		//tx.executeSql('DROP TABLE IF EXISTS weekly_list');
+		//tx.executeSql('DROP TABLE IF EXISTS weekly_info');
 		//tx.executeSql('DROP TABLE IF EXISTS user_hospital');
 		//tx.executeSql('DROP TABLE IF EXISTS exercise_history');
 		//tx.executeSql('DROP TABLE IF EXISTS user_appointment');

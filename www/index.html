@@ -88,7 +88,7 @@
           <br>
         <ons-input id="login_password" modifier="underbar" type="password" placeholder="Password" float required class="input"></ons-input>
           <br>
-        <ons-button onclick="login()" class="inputbtn"> Sign in </ons-button>
+        <ons-button onclick="login()" class="inputbtn"> Login </ons-button>
         <p onclick="fn.load('signup.html')"> Create New Account </p>
         <p id="demo" hidden="hidden"></p>
     </div>
@@ -669,6 +669,7 @@
       <div class="center">
         EXERCISE
       </div>
+      <div class="left"><ons-back-button onclick="fn.load('exercisemenu.html')"></ons-back-button></div>
     </ons-toolbar>
 
     <!--table>
@@ -783,7 +784,11 @@
   <br>
   <p> Pregnant again? Set a new due date </p>
   <br>
-  <ons-button onclick="fn.load('duedatecalc.html')"> Set a new due date </ons-button>
+
+  <input type="date" class="datepicker" id="newduedate"> </input>
+  <br><br><br>
+  <ons-button onclick="editbabydetails()"> Submit </ons-button>
+  <!--ons-button onclick="fn.load('duedatecalc.html')"> Set a new due date </ons-button-->
   </div>
 
   </ons-page>
