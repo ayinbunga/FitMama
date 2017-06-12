@@ -367,6 +367,64 @@
         
     </ons-dialog>
 
+
+    <ons-dialog id="edit_appointform">
+    <p class="largefont2" align="center"> Edit Appointment </p>
+
+      <ul class="list">
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+            <ons-input class="input2" type="text" modifier="underbar" id="edit_ptitle"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Title
+          </div>
+      
+        </div>
+      </li>
+
+      <li class="list__item">
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+            <ons-input class="input2" type="date" modifier="underbar" id="edit_pdate"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Date
+          </div>
+      
+        </div>
+      
+
+        <div class="list__item__center">
+    
+          <div class="list__item__subtitle" align="center">
+            <ons-input class="input2" type="time" modifier="underbar" id="edit_ptime"></ons-input>
+          </div>
+        
+          <div class="list__item__title">
+            Time
+          </div>
+      
+        </div>
+      </li>
+      
+      <li>
+      <div align="right">
+        <ons-button class="button button--material--flat" onclick="editappoint()"> UPDATE </ons-button> 
+        <ons-button class="button button--material--flat" onclick="hideDialog('edit_appointform')"> CANCEL </ons-button>
+      </div>
+      </li>
+
+      </ul>
+        
+    </ons-dialog>
+
     <p id="demo" hidden="hidden"></p>
 
     <div class="tab-bar tab-bar--top tab-bar--top-border">

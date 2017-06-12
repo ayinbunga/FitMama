@@ -1226,7 +1226,7 @@ var displayAppointment = function() {
           if(len > 0){
             for(i = len-1; i >= 0; i--){
 
-              $("#appointlist").append("<ons-list> <ons-list-item> <div class='list__item__title'>"+ results.rows.item(i).appoint_title +" </div> <div class='list__item__subtitle'> Date : "+ results.rows.item(i).date +" &nbsp; Time: "+ results.rows.item(i).time +" </div> <span class='right' id='"+ results.rows.item(i).id +"' onclick='deleteAppoint(this.id)'> <ons-icon icon='ion-close' size='24px, material:20px'></ons-icon> </span></ons-list-item> </ons-list> ");
+              $("#appointlist").append("<ons-list> <ons-list-item> <div  id='"+ results.rows.item(i).id +"' onclick='showEditAppoint(this.id)'> <div class='list__item__title'>"+ results.rows.item(i).appoint_title +" </div> <div class='list__item__subtitle'> Date : "+ results.rows.item(i).date +" &nbsp; Time: "+ results.rows.item(i).time +" </div> </div> <span class='right' id='"+ results.rows.item(i).id +"' onclick='deleteAppoint(this.id)'> <ons-icon icon='ion-close' size='24px, material:20px'></ons-icon> </span></ons-list-item> </ons-list> ");
             }
           }
   
@@ -1382,6 +1382,40 @@ var addappoint = function(){
   }
 };
 
+//load edit appoint form
+
+var showEditAppoint = function(id) {
+
+  var username = localStorage.getItem('username');
+        
+  db.transaction(function(tx){
+    tx.executeSql('SELECT * FROM user_appointment WHERE username = ? AND id = ?', [username,id], querySuccess, errorCB);
+  });
+
+  function querySuccess(tx, results){
+          
+      var len = results.rows.length;
+         
+      if(len > 0){
+            for(i = 0; i < len; i++){
+                $("#edit_ptitle").attr("value", results.rows.item(i).appoint_title);
+                $("#edit_pdate").attr("value", results.rows.item(i).date);
+                $("#edit_ptime").attr("value", results.rows.item(i).time);
+                localStorage.setItem('appointment_id', id);
+            }
+          } 
+      else {
+
+          }
+
+  }
+
+   function errorCB(err){
+      ons.notification.alert("Error" + err.code);  }
+
+  showDialog('edit_appointform');
+};
+
 //load edit hospital form
 
 var showEditHosp = function() {
@@ -1448,6 +1482,25 @@ var edithosp = function() {
 
   hideDialog('edithospital_form');
   displayHospDetails();
+};
+
+
+//edit user hospital details
+
+var editappoint = function() {
+
+  var username = localStorage.getItem('username');
+  var id = localStorage.getItem('appointment_id');
+  var title = $("#edit_ptitle").val();
+  var date = $("#edit_pdate").val();
+  var time = $("#edit_ptime").val();
+
+  db.transaction(function (tx) {
+    tx.executeSql('UPDATE user_appointment SET appoint_title=?, date=?, time=? WHERE username = ? AND id=?', [title, date, time, username, id]);
+  });
+  
+  hideDialog('edit_appointform');
+  displayAppointment();
 };
 
 //edit user baby details
